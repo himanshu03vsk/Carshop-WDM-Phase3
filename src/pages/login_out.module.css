@@ -1,0 +1,93 @@
+/* Team Details */
+/* Vishwakarma, Himanshu | Marquez, Andrea */
+/* 1002240465 | 1001515535 */
+
+
+/* fonts used */
+/* Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
+/* Colors: (hex form): #333; #000, #fff, #808080, #4e4e4e*/
+
+
+
+
+.login-container {
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.login-container input, select {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor:auto;
+    margin-top: 15px;
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.login-container button:hover {
+    background-color: #999;
+}
+
+
+.logout-container {
+    padding: 20px;
+    text-align: center;
+    justify-content: center; 
+    align-items: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.logout-container button {
+    width: 10%;
+    padding: 10px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.logout-container button:hover {
+    background-color: #999;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.login-container input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
