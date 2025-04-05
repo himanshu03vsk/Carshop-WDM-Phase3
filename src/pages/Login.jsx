@@ -1,53 +1,32 @@
-import React from "react";
-import style from './login_out.module.css';
+import { useState } from 'react';
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router';
 
-const Login = () => {
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Handle form submission logic here
+function Login() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const { login } = useAuth();
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await axios.post('/api/auth/login', { email, password });
+            login(res.data.user, res.data.token);
+            navigate('/parts'); // redirect after login
+        } catch (err) {
+            alert(err.response.data.message || 'Login failed');
+        }
     };
 
     return (
-        <div className={style.loginContainer}>
-            <h2>Create an Account</h2>
-            <form onSubmit={handleSubmit}>
-
-                <div className={style.formGroup}>
-                    <label htmlFor="firstName">First Name</label>
-                    <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
-                </div>
-
-                <div className={style.formGroup}>
-                    <label htmlFor="lastName">Last Name</label>
-                    <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
-                </div>
-
-                <div className={style.formGroup}>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Email Address" required />
-                </div>
-
-                <div className={style.formGroup}>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="Password" required />
-                </div>
-
-                <div className={style.formGroup}>
-                    <label htmlFor="accountType">Account Type</label>
-                    <select id="accountType" name="accountType" required>
-                        <option value="customer">Customer</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
-
-                <button type="submit">Register</button>
-            </form>
-
-            <div className={style.formFooter}>
-                <p>Already have an account? <a href="/login">Login here</a></p>
-            </div>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <button type="submit">Login</button>
+        </form>
     );
-};
+}
 
 export default Login;
