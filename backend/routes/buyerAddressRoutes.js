@@ -7,5 +7,6 @@ router.get('/:buyer_email/:line1', authMiddleware, buyerAddressController.getBuy
 router.post('/', authMiddleware, buyerAddressController.createBuyerAddress);
 router.put('/:buyer_email/:line1', authMiddleware, buyerAddressController.updateBuyerAddress);
 router.delete('/:buyer_email/:line1', authMiddleware, buyerAddressController.deleteBuyerAddress);
+router.get('/buyer/:buyer_email', authMiddleware, buyerAddressController.getBuyerAddressByBuyerId);
 
 module.exports = router;

@@ -12,7 +12,7 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('/api/auth/login', { email, password });
+            const res = await axios.post('/api/login', { email, password });
             login(res.data.user, res.data.token);
             navigate('/parts'); // redirect after login
         } catch (err) {
@@ -20,12 +20,13 @@ function Login() {
         }
     };
 
-    return (
+    return (<>
         <form onSubmit={handleSubmit}>
             <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
             <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             <button type="submit">Login</button>
         </form>
+        </>
     );
 }
 

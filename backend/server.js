@@ -7,7 +7,7 @@ const Buyer = require('./models/Buyer');
 const Seller = require('./models/Seller');
 const Shipment = require('./models/Shipment');
 const Cart = require('./models/Cart');
-const PaymentInfo = require('./models/PaymentInfo');
+const PaymentInfo = require('./models/Payment');
 const BuyerAddress = require('./models/BuyerAddress');
 const PartImage = require('./models/PartImage');
 const PartSoldBy = require('./models/PartSoldBy');
@@ -25,6 +25,13 @@ const partsOfCarsRoutes = require('./routes/partsOfCarsRoutes');
 const buyerAddressRoutes = require('./routes/buyerAddressRoutes');
 const partImageRoutes = require('./routes/partImageRoutes');
 const authRoutes = require('./routes/authRoutes');
+
+// Associations
+Seller.hasMany(PartSoldBy, { foreignKey: 'seller_email' });
+PartSoldBy.belongsTo(Seller, { foreignKey: 'seller_email' });
+
+Part.hasMany(PartSoldBy, { foreignKey: 'part_id' });
+PartSoldBy.belongsTo(Part, { foreignKey: 'part_id' });
 
 const app = express();
 const port = process.env.PORT || 3000;

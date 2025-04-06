@@ -8,5 +8,7 @@ router.get('/:method_no/:buyer_email',authMiddleware, paymentController.getPayme
 router.post('/',authMiddleware, paymentController.createPayment);
 router.put('/:method_no/:buyer_email',authMiddleware, paymentController.updatePayment);
 router.delete('/:method_no/:buyer_email',authMiddleware, paymentController.deletePayment);
+router.get('/:buyer_email',authMiddleware, paymentController.getPaymentByEmail);
+
 
 module.exports = router;

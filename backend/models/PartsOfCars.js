@@ -3,24 +3,31 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
-const PartSoldBy = sequelize.define('part_sold_by', {
-  seller_email: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-    primaryKey: true
-  },
+const PartsOfCars = sequelize.define('part_of_cars', {
   part_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true
   },
-  count: {
+  make: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    primaryKey: true
+  },
+  model: {
+    type: DataTypes.STRING(50),
+    allowNull: false,
+    primaryKey: true
+  },
+  year: {
     type: DataTypes.INTEGER,
-    allowNull: false
-  }
+    allowNull: false,
+    primaryKey: true
+  },
+
 }, {
   timestamps: false,
   tableName: 'part_sold_by'
 });
 
-module.exports = PartSoldBy;
+module.exports = PartsOfCars;
