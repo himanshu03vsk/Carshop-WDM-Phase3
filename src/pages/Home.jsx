@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router"; // Import the correct hook from React Router
+import { useNavigate } from "react-router-dom"; // Import the correct hook from React Router
 import  "./Home.css"; // Import CSS module
 
 const Home = () => {

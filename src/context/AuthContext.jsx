@@ -1,8 +1,10 @@
 // context/AuthContext.js
 import { createContext, useState, useContext } from 'react';
 
+// Create the context for auth
 const AuthContext = createContext();
 
+// Define the AuthProvider to wrap around your application
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token'));
@@ -26,6 +28,7 @@ export function AuthProvider({ children }) {
     );
 }
 
+// Hook to use the AuthContext in other components
 export function useAuth() {
     return useContext(AuthContext);
 }

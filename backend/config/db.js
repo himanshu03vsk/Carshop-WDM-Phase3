@@ -14,6 +14,14 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
      // Log SQL queries for debugging
 });
 
+
+
+// const sequelize = new Sequelize('carshop', 'root', 'kiminosei', {
+//     host: 'localhost',
+//     dialect: 'mysql',
+//     logging: console.log // Log SQL queries for debugging
+// });
+
 // Test the connection
 sequelize.authenticate()
     .then(() => {

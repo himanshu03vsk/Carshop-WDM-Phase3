@@ -1,5 +1,8 @@
+const cors = require('cors');
 const express = require('express');
 const sequelize = require('./config/db');
+
+// Importing models
 const Part = require('./models/Part');
 const Car = require('./models/Car');
 const Person = require('./models/Person');
@@ -36,9 +39,17 @@ PartSoldBy.belongsTo(Part, { foreignKey: 'part_id' });
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Middleware
 app.use(express.json());
 
-// Use routes
+// Enable CORS with the correct configuration
+app.use(cors({
+    origin: 'http://localhost:5173',  // Frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allowed HTTP methods
+    credentials: true,  // Allow credentials like cookies or authentication
+}));
+
+// Routes
 app.use('/api/parts', partRoutes);
 app.use('/api/cars', carRoutes);
 app.use('/api/users', userRoutes);
@@ -49,9 +60,9 @@ app.use('/api/part-sold-by', partSoldByRoutes);
 app.use('/api/parts-of-cars', partsOfCarsRoutes);
 app.use('/api/buyer-addresses', buyerAddressRoutes);
 app.use('/api/part-images', partImageRoutes);
-app.use('/api/auth', authRoutes); // Use auth routes
+app.use('/api/auth', authRoutes); // Authentication routes
 
-
+// Syncing database and starting the server
 sequelize.sync()
     .then(() => {
         console.log('Database & tables created!');
