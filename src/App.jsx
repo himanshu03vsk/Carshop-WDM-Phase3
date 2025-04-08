@@ -19,6 +19,7 @@ import Register from './pages/Register';
 import ProductDetail from './pages/ProductDetail';
 import ProductListing from './pages/ProductListing';
 import ShoppingCart from './pages/ShoppingCart';
+import ProtectedRoute from './components/ProtectedRoute';
 // import { Router, Route, Link, useNavigate, Outlet } from 'react-router';
 
 
@@ -38,8 +39,8 @@ function App() {
           <Route path='/logout' element={<Logout />}></Route>
           <Route path='/prodlist' element={<ProductListing />}></Route>
           <Route path='/proddetail' element={<ProductDetail />}></Route>
-          <Route path='/cart' element={<ShoppingCart />}></Route>
-          <Route path='/accsetting' element={<AccountSetting />}></Route>
+          <Route path='/cart' element={<ProtectedRoute><ShoppingCart /></ProtectedRoute>}></Route>
+          <Route path='/accsetting' element={<ProtectedRoute><AccountSetting /></ProtectedRoute>}></Route>
         </Route>
 
       </Routes>

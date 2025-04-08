@@ -59,7 +59,8 @@ const Shipment = sequelize.define('Shipment', {
         }
     }
 }, {
-    tableName: 'shipment'
+    tableName: 'shipment',
+    timestamps: false
 });
 
 module.exports = Shipment;

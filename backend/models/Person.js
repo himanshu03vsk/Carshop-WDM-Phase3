@@ -28,7 +28,8 @@ const Person = sequelize.define('Person', {
         allowNull: false
     }
 }, {
-    tableName: 'person'
+    tableName: 'person',
+    timestamps: false
 });
 
 module.exports = Person;

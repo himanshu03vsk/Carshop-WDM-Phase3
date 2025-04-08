@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext'; // Import useAuth context hook
 
 const Register = () => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [p_password, setPassword] = useState('');
     const [fname, setFname] = useState('');
     const [lname, setLname] = useState('');
     const [dob, setDob] = useState('');
@@ -21,7 +21,7 @@ const Register = () => {
             // Make the registration request
             const response = await axios.post('http://localhost:3000/api/auth/register', {
                 email,
-                password, // Use 'password' as expected by most backends
+                p_password, // Use 'password' as expected by most backends
                 fname,
                 lname,
                 dob,
@@ -64,7 +64,7 @@ const Register = () => {
                     <label>Password</label>
                     <input
                         type="password"
-                        value={password}
+                        value={p_password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />

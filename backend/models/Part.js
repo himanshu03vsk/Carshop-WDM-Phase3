@@ -33,7 +33,8 @@ const Part = sequelize.define('Part', {
         allowNull: false
     }
 }, {
-    tableName: 'part'
+    tableName: 'part',
+    timestamps: false
 });
 
 module.exports = Part;

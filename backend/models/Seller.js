@@ -21,7 +21,8 @@ const Seller = sequelize.define('Seller', {
         allowNull: false
     }
 }, {
-    tableName: 'seller'
+    tableName: 'seller',
+    timestamps: false
 });
 
 module.exports = Seller;

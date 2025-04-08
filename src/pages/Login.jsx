@@ -73,7 +73,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [p_password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const { login } = useAuth();  // useAuth to access the login function
   const navigate = useNavigate();
@@ -84,11 +84,12 @@ const Login = () => {
       // Make the login request
       const response = await axios.post('http://localhost:3000/api/auth/login', {
         email,
-        password,
+        p_password,
       });
 
       console.log(response.data);  // Log response to check if the user and token are returned
-
+      console.log(response.data.user);  // Log user data to check if it's returned correctly
+      console.log(response.data.token);  // Log token to check if it's returned correctly
       if (response.data && response.data.token && response.data.user) {
         // If the response contains the necessary data, log in the user
         login(response.data.user, response.data.token);  // Pass both userData and token
@@ -117,7 +118,7 @@ const Login = () => {
         <input
           type="password"
           placeholder="Password"
-          value={password}
+          value={p_password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Login</button>

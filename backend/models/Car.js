@@ -18,7 +18,8 @@ const Car = sequelize.define('Car', {
         primaryKey: true
     }
 }, {
-    tableName: 'car'
+    tableName: 'car',
+    timestamps: false
 });
 
 module.exports = Car;

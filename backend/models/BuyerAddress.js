@@ -33,7 +33,8 @@ const BuyerAddress = sequelize.define('BuyerAddress', {
         allowNull: false
     }
 }, {
-    tableName: 'buyer_address'
+    tableName: 'buyer_address',
+    timestamps: false
 });
 
 module.exports = BuyerAddress;

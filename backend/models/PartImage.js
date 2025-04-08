@@ -25,7 +25,8 @@ const PartImage = sequelize.define('PartImage', {
         type: DataTypes.STRING(255)
     }
 }, {
-    tableName: 'part_image'
+    tableName: 'part_image',
+    timestamps: false
 });
 
 module.exports = PartImage;

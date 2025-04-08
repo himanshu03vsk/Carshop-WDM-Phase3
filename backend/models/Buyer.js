@@ -13,7 +13,8 @@ const Buyer = sequelize.define('Buyer', {
         }
     }
 }, {
-    tableName: 'buyer'
+    tableName: 'buyer',
+    timestamps: false
 });
 
 module.exports = Buyer;
