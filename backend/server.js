@@ -63,13 +63,39 @@ app.use('/api/part-images', partImageRoutes);
 app.use('/api/auth', authRoutes); // Authentication routes
 
 // Syncing database and starting the server
-sequelize.sync()
-    .then(() => {
-        console.log('Database & tables created!');
-        app.listen(port, () => {
-            console.log(`Server is running on port ${port}`);
-        });
-    })
-    .catch(err => {
-        console.error('Unable to sync the database:', err);
+
+// Test the connection
+const startServer = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Connection to SQL Server has been established successfully.');
+
+    // Sync models with the database
+    await sequelize.sync();
+    console.log('Models synced successfully.');
+
+    // Your server setup
+    // const app = require('./app');
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
     });
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+    process.exit(1); // Exit with failure code
+  }
+};
+
+startServer();
+
+// Handle unhandled promise rejections globally
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  process.exit(1); // Exit with failure code
+});
+
+// Handle uncaught exceptions globally
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception thrown:', err);
+  process.exit(1); // Exit with failure code
+});
