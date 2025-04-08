@@ -37,35 +37,18 @@
 
 
 require('dotenv').config({ path: '.env' }); // Adjust this path if needed
-
+ 
 const express = require('express');
 // const sql = require('mssql');
 const app = express();
 const  { Sequelize } = require('sequelize');
-
-console.log('DB_NAME:', process.env.DB_NAME);   // 
-console.log('DB_USER:', process.env.DB_USER);   // 
+ 
+console.log('DB_NAME:', process.env.DB_NAME);   //
+console.log('DB_USER:', process.env.DB_USER);   //
 console.log('DB_PASSWORD:', process.env.DB_PASSWORD);   //
-console.log('DB_SERVER:', process.env.DB_HOST);   
-
-
-
-// const sequelize = new Sequelize(
-//   'carparts', // Database name
-//   'admin1', // Username
-//   'carPart2025', // Password
-//   {
-//     host: 'wdmcarparts.database.windows.net', // SQL Server host (replace with your Azure SQL server name)
-//     dialect: 'mssql', // Dialect
-//     dialectOptions: {
-//       encrypt: true, // Important for Azure SQL
-//       trustServerCertificate: true, // Disable certificate validation, optional (only for development)
-//     },
-//     logging: false, // Optional: disable logging if you don't need SQL queries to be printed
-//   }
-// );
-
-
+console.log('DB_SERVER:', process.env.DB_HOST);  
+ 
+ 
 const sequelize = new Sequelize(
   process.env.DB_NAME, // Database name
   process.env.DB_USER, // Username
@@ -80,37 +63,6 @@ const sequelize = new Sequelize(
     logging: false, // Optional: disable logging if you don't need SQL queries to be printed
   }
 );
-
+ 
 module.exports = sequelize;
-
-// // Database connection
-// const config = {
-//     server: 'wdmcarparts.database.windows.net',
-//     user: 'admin1',
-//     password: 'carPart2025',
-//     database: 'carparts',
-//     options: {
-//         encrypt: true,   // For Azure SQL Database, set encrypt to true
-//         trustServerCertificate: false // Change to true if you get SSL/TLS certificate issues
-//       }
-//     };
-    
-//     // Connect to the database
-//     sql.connect(config)
-//       .then(pool => {
-//         console.log('Connected to Azure SQL Database!');
-        
-//         // Example query
-//         return pool.request().query('SELECT * FROM part');
-//       })
-//       .then(result => {
-//         console.log(result.recordset); // Show query results
-//       })
-//       .catch(err => {
-//         console.error('Error connecting to Azure SQL Database', err);
-//       })
-//       .finally(() => {
-//         sql.close();
-//       });
-
-
+ 
