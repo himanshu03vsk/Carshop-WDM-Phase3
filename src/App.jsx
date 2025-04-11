@@ -38,7 +38,7 @@ function App() {
 
           <Route path='/logout' element={<Logout />}></Route>
           <Route path='/prodlist' element={<ProductListing />}></Route>
-          <Route path='/proddetail' element={<ProductDetail />}></Route>
+          <Route path='/proddetail/:id' element={<ProductDetail />}></Route>
           <Route path='/cart' element={<ProtectedRoute><ShoppingCart /></ProtectedRoute>}></Route>
           <Route path='/accsetting' element={<ProtectedRoute><AccountSetting /></ProtectedRoute>}></Route>
         </Route>

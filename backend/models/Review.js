@@ -1,18 +1,9 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
-const Part = require('./Part');
 const Buyer = require('./Buyer');
+const Part = require('./Part');
 
-const Cart = sequelize.define('Cart', {
-    part_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
-        references: {
-            model: Part,
-            key: 'part_id'
-        }
-    },
+const Review = sequelize.define('Review', {
     buyer_email: {
         type: DataTypes.STRING(50),
         allowNull: false,
@@ -22,18 +13,25 @@ const Cart = sequelize.define('Cart', {
             key: 'buyer_email'
         }
     },
-    quantity: {
+    part_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        references: {
+            model: Part,
+            key: 'part_id'
+        }
+    },
+    rating: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    
-    color: {
-        type: DataTypes.STRING(20),
-        allowNull: false
-    },
+    review_text: {
+        type: DataTypes.TEXT
+    }
 }, {
-    tableName: 'cart',
+    tableName: 'Review',
     timestamps: false
 });
 
-module.exports = Cart;
+module.exports = Review;

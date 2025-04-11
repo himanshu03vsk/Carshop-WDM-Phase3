@@ -1,41 +1,3 @@
-// require('dotenv').config({ path: '.env' }); // Adjust this path if needed
-
-// console.log('DB_NAME:', process.env.DB_NAME);   // Should print 'carshop'
-// console.log('DB_USER:', process.env.DB_USER);   // Should print 'root'
-// console.log('DB_PASSWORD:', process.env.DB_PASSWORD);   // Should print 'kiminosei'
-// console.log('DB_HOST:', process.env.DB_HOST);   // Should print 'localhost'
-
-// const { Sequelize } = require('sequelize');
-
-// // Initialize Sequelize with environment variables
-// const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-//     host: process.env.DB_HOST,
-//     dialect: 'mysql',
-//      // Log SQL queries for debugging
-// });
-
-
-
-// // const sequelize = new Sequelize('carshop', 'root', 'kiminosei', {
-// //     host: 'localhost',
-// //     dialect: 'mysql',
-// //     logging: console.log // Log SQL queries for debugging
-// // });
-
-// // Test the connection
-// sequelize.authenticate()
-//     .then(() => {
-//         console.log('Connection has been established successfully.');
-//     })
-//     .catch(err => {
-//         console.error('Unable to connect to the database:', err.message);
-//     });
-
-// module.exports = sequelize;
-
-
-
-
 require('dotenv').config({ path: '.env' }); // Adjust this path if needed
  
 const express = require('express');
@@ -60,9 +22,25 @@ const sequelize = new Sequelize(
       encrypt: true, // Important for Azure SQL
       trustServerCertificate: true, // Disable certificate validation, optional (only for development)
     },
-    logging: false, // Optional: disable logging if you don't need SQL queries to be printed
+    logging: console.log, // Optional: disable logging if you don't need SQL queries to be printed
   }
 );
+
+
+// const sequelize = new Sequelize(
+//   'carshopdb', // Database name
+//   'root', // Username
+//   'kiminosei', // Password
+//   {
+//     host: 'localhost', // SQL Server host (replace with your Azure SQL server name)
+//     dialect: 'mysql', // Dialect
+//     dialectOptions: {
+//       encrypt: true, // Important for Azure SQL
+//       trustServerCertificate: true, // Disable certificate validation, optional (only for development)
+//     },
+//     logging: console.log, // Optional: disable logging if you don't need SQL queries to be printed
+//   }
+// );
  
 module.exports = sequelize;
  

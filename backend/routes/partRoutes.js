@@ -3,6 +3,8 @@ const router = express.Router();
 const partController = require('../controllers/partController');
 const authMiddleware = require('../middleware/authMiddleware'); // Import authMiddleware
 
+
+router.get('/related', authMiddleware, partController.getRelatedParts);
 router.get('/',authMiddleware, partController.getAllParts);
 router.get('/:id',authMiddleware, partController.getPartById);
 router.post('/',authMiddleware, partController.createPart);
@@ -15,7 +17,7 @@ router.get('/price/:price',authMiddleware, partController.getPartByPrice);
 router.get('/model/:model',authMiddleware, partController.getPartByModel);
 router.get('/type/:type',authMiddleware, partController.getPartByType);
 router.get('/year/:year',authMiddleware, partController.getPartByYear);
-router.get('/color/:color',authMiddleware, partController.getPartByColor);
-
-
+// router.get('/color/:color',authMiddleware, partController.getPartByColor);
+router.get('/color/:id', partController.getPartColorsById);
+router.get('/reviews/:id', partController.getReviewsByPartId);
 module.exports = router;

@@ -24,6 +24,10 @@ const Part = sequelize.define('Part', {
     part_weight: {
         type: DataTypes.DECIMAL(5, 2)
     },
+    part_color: {
+        type: DataTypes.STRING(30),
+        allowNull: true
+    },
     part_type: {
         type: DataTypes.STRING(100),
         allowNull: false

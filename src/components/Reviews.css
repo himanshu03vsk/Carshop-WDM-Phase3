@@ -1,0 +1,28 @@
+.reviews-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #242424;
+    border-radius: 10px;
+  }
+  
+  .review-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .review-rating {
+    color: #ffaa00;
+  }
+  
+  .review-text {
+    margin: 0;
+    font-size: 0.95rem;
+  }
+  
