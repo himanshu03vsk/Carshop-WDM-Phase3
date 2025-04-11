@@ -70,6 +70,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';  // Ensure correct import path
 import { useNavigate } from 'react-router-dom';
+import styles from './login_out.module.css';
+ 
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -105,7 +107,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className={styles['login-container']}>
       <h1>Login</h1>
       {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>

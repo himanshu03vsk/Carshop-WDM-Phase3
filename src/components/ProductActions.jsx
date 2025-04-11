@@ -4,6 +4,7 @@ const ProductActions = ({ product }) => {
   const [quantity, setQuantity] = useState(1); // Quantity is updated via input
   const [colors, setColors] = useState([]); // Colors are used in the dropdown
   const [selectedColor, setSelectedColor] = useState('');  // State for the selected color
+  const [buttonState, setButtonState] = useState('Add to Cart'); // State for the button
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -68,6 +69,10 @@ const ProductActions = ({ product }) => {
 
       updateCart();
       console.log(`Added ${quantity} of ${selectedColor} to the cart.`);
+      setButtonState('Added to Cart');
+      
+      // Disable the button temporarily
+      document.querySelector('.crt-btn').disabled = true;
       // Add logic to actually add the product to the cart (e.g., storing in localStorage or redux)
     } else {
       console.log('Please select a color');
@@ -110,7 +115,7 @@ const ProductActions = ({ product }) => {
       </div>
 
       <button className="act-btn crt-btn" onClick={handleAddToCart}>
-        Add to Cart
+        {buttonState}
       </button>
     </div>
   );

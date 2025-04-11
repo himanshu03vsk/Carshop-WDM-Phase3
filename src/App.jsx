@@ -20,6 +20,7 @@ import ProductDetail from './pages/ProductDetail';
 import ProductListing from './pages/ProductListing';
 import ShoppingCart from './pages/ShoppingCart';
 import ProtectedRoute from './components/ProtectedRoute';
+import Checkout from './pages/Checkout';
 // import { Router, Route, Link, useNavigate, Outlet } from 'react-router';
 
 
@@ -41,6 +42,8 @@ function App() {
           <Route path='/proddetail/:id' element={<ProductDetail />}></Route>
           <Route path='/cart' element={<ProtectedRoute><ShoppingCart /></ProtectedRoute>}></Route>
           <Route path='/accsetting' element={<ProtectedRoute><AccountSetting /></ProtectedRoute>}></Route>
+          <Route path='/checkout' element={<ProtectedRoute><Checkout /></ProtectedRoute>}></Route>
+
         </Route>
 
       </Routes>

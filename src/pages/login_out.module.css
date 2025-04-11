@@ -2,13 +2,25 @@
 /* Vishwakarma, Himanshu | Marquez, Andrea */
 /* 1002240465 | 1001515535 */
 
-
 /* fonts used */
 /* Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
 /* Colors: (hex form): #333; #000, #fff, #808080, #4e4e4e*/
 
+/* Styling for the login heading */
+.login-container h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Lucida Sans', Geneva, Verdana, sans-serif;
+}
 
-
+/* Styling for error messages */
+.login-container p {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-family: 'Lucida Sans', Geneva, Verdana, sans-serif;
+}
 
 .login-container {
     padding: 20px;
@@ -18,18 +30,19 @@
     align-items: center;
 }
 
-form{
+form {
     display: flex;
     flex-direction: column;
 }
-
 
 .login-container input, select {
     padding: 10px;
     border: none;
     border-radius: 5px;
-    cursor:auto;
+    cursor: auto;
     margin-top: 15px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .login-container button {
@@ -47,11 +60,10 @@ form{
     background-color: #999;
 }
 
-
 .logout-container {
     padding: 20px;
     text-align: center;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
 }
 
@@ -91,3 +103,35 @@ p {
     box-sizing: border-box;
 }
 
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-container, .logout-container {
+        padding: 10px;
+    }
+
+    .login-container h1 {
+        font-size: 1.5rem;
+    }
+
+    .login-container button, .logout-container button {
+        width: 100%;
+    }
+
+    .logout-container button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-container h1 {
+        font-size: 1.2rem;
+    }
+
+    p {
+        font-size: 14px;
+    }
+
+    .login-container input, select, .login-container button {
+        font-size: 14px;
+    }
+}

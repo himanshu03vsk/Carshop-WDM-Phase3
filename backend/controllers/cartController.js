@@ -1,5 +1,5 @@
 // carController.js
-const { where } = require('sequelize');
+const Sequelize = require('sequelize');
 const Cart = require('../models/Cart'); // Assuming you have a Cart model defined in models/cartModel.js
 // Function to get all cars
 // exports.getCartById = async (req, res) => { 
@@ -40,6 +40,98 @@ const Cart = require('../models/Cart'); // Assuming you have a Cart model define
 
 //     res.status(200).json({'message': 'Delete cart'})
 // };
+
+
+
+exports.updateCartItem = async (req, res) => {
+  const { part_id, buyer_email, color } = req.params;
+  const { quantity } = req.query; // Use query to get the quantity
+  try {
+    const existingItem = await Cart.findOne({
+      where: {
+        part_id,
+        buyer_email,
+        color
+      }
+    });
+
+    if (!existingItem) {
+      return res.status(404).json({ message: 'Cart item not found' });
+    }
+
+    // Ensure quantity is a number before updating
+    const parsedQuantity = parseInt(quantity, 10);
+    if (isNaN(parsedQuantity)) {
+      return res.status(400).json({ error: 'Invalid quantity' });
+    }
+    // Update the quantity in the DB
+    await Cart.update(
+      { quantity: parsedQuantity },
+      {
+        where: {
+          part_id,
+          buyer_email,
+          color
+        }
+      }
+    );
+    res.status(200).json({ message: 'Cart item updated successfully' });
+
+  } catch (error) {
+    console.error('Error updating cart item:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.deleteCartItem = async (req, res) => {
+  const { part_id, buyer_email, color } = req.params;
+
+  try {
+      const deletedItem = await Cart.destroy({
+          where: {
+              part_id,
+              buyer_email,
+              color
+          }
+      });
+
+      if (deletedItem) {
+          return res.status(200).json({ message: 'Cart item deleted successfully' });
+      } else {
+          return res.status(404).json({ message: 'Cart item not found' });
+      }
+  } catch (error) {
+      console.error('Error deleting cart item:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+exports.getCartById = async (req, res) => {
+  const { buyer_email } = req.params;
+
+  try {
+      const cart_items = await Cart.findAll({ where: { buyer_email } });
+
+      if (!cart_items || cart_items.length === 0) {
+          return res.status(200).json([]);
+      }
+
+      // Format the output to ensure quantities are numbers and strip unnecessary metadata
+      const parsedCart = cart_items.map(item => ({
+          part_id: item.part_id,
+          buyer_email: item.buyer_email,
+          quantity: parseInt(item.quantity, 10),
+          color: item.color
+      }));
+
+      console.log('this is the parsed cart',parsedCart);
+      res.status(200).json(parsedCart);
+  } catch (err) {
+      console.error('Error fetching cart:', err);
+      res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 exports.addToCart = async (req, res) => {
     const { part_id, buyer_email, quantity, color } = req.body;
   

@@ -9,6 +9,7 @@ nav ul {
     margin: 0;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens */
 }
 
 nav ul li {
@@ -23,4 +24,16 @@ nav ul li a {
 
 nav ul li a:hover {
     background-color: #555;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;
+    }
+
+    nav ul li a {
+        padding: 10px 20px; /* Adjust padding for better touch targets */
+    }
 }
