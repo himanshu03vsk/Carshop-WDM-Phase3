@@ -1,4 +1,4 @@
-// models/PartSoldBy.js
+// models/PartsOfCars.js
 
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
@@ -19,7 +19,7 @@ const PartsOfCars = sequelize.define('part_of_cars', {
     allowNull: false,
     primaryKey: true
   },
-  year: {
+  car_year: {
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true
@@ -27,7 +27,7 @@ const PartsOfCars = sequelize.define('part_of_cars', {
 
 }, {
   timestamps: false,
-  tableName: 'part_sold_by'
+  tableName: 'parts_of_cars'
 });
 
 module.exports = PartsOfCars;
