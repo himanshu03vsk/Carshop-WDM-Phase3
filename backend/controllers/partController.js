@@ -37,31 +37,6 @@ exports.getAllParts = async (req, res) => {
   }
 };
 
-
-
-
-// Get part by ID and color
-exports.getPartByIdAndColor = async (req, res) => {
-  const { id, color } = req.query;
-
-  try {
-    const part = await Part.findOne({
-      where: {
-        part_id: id,
-        part_color: color
-      }
-    });
-
-    if (!part) {
-      return res.status(404).json({ message: "Part not found with the specified ID and color" });
-    }
-
-    res.json(part);
-  } catch (err) {
-    console.error("Error fetching part by ID and color:", err);
-    res.status(500).json({ message: "Database error" });
-  }
-};
 // Get part by ID
 exports.getPartById = async (req, res) => {
   const { id } = req.params;
@@ -319,3 +294,21 @@ exports.getReviewsByPartId = async (req, res) => {
     res.status(500).json({ message: "Database error" });
   }
 }
+
+
+exports.getCategoryList = async (req, res) => {
+  try {
+    const categories = await Part.findAll({
+      attributes: [
+        [Part.sequelize.fn('DISTINCT', Part.sequelize.col('part_category')), 'part_category']
+      ],
+      raw: true,
+      order: [[Part.sequelize.col('part_category'), 'ASC']],
+    });
+
+    const categoryList = categories.map(item => item.part_category);
+    res.json(categoryList);
+  } catch (err) {
+    res.status(500).json({ message: "Database error", error: err.message });
+  }
+};
