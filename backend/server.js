@@ -32,9 +32,24 @@ const authRoutes = require('./routes/authRoutes');
 // Associations
 Seller.hasMany(PartSoldBy, { foreignKey: 'seller_email' });
 PartSoldBy.belongsTo(Seller, { foreignKey: 'seller_email' });
-
+/*
 Part.hasMany(PartSoldBy, { foreignKey: 'part_id' });
 PartSoldBy.belongsTo(Part, { foreignKey: 'part_id' });
+
+Part.hasMany(PartsOfCars, { foreignKey: 'part_id' });
+PartsOfCars.belongsTo(Part, { foreignKey: 'part_id' });
+
+Car.hasMany(PartsOfCars, {
+  foreignKey: ['make', 'model', 'car_year'], // not enforced directly
+  sourceKey: ['make', 'model', 'car_year']   // required for Sequelize
+});
+PartsOfCars.belongsTo(Car, {
+  foreignKey: {
+    name: 'carCompositeKey',
+    fields: ['make', 'model', 'car_year']
+  },
+  targetKey: ['make', 'model', 'car_year'] // again, just for reference
+});*/
 
 const app = express();
 const port = process.env.PORT || 3000;
