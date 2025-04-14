@@ -3,8 +3,9 @@ const router = express.Router();
 const partController = require('../controllers/partController');
 const authMiddleware = require('../middleware/authMiddleware'); // Import authMiddleware
 
-
 router.get('/categoryList/', partController.getCategoryList);
+router.get('/catelogue/', partController.getPartsForList);
+router.get('/by-category', partController.getPartBySelectedCategory); 
 
 router.get('/related', authMiddleware, partController.getRelatedParts);
 router.get('/',authMiddleware, partController.getAllParts);
