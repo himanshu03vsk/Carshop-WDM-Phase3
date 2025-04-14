@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-const CategoryList = () => {
+const CategoryList = ({ onCategorySelect }) => {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        // Now you don't need the token since the API is public
         const res = await fetch('http://localhost:3000/api/parts/categoryList', {
           headers: {
-            'Content-Type': 'application/json', // No token needed
+            'Content-Type': 'application/json', 
           },
         });
 
@@ -22,7 +21,6 @@ const CategoryList = () => {
         const data = await res.json();
         console.log('Fetched categories:', data);
 
-        // Assuming each category object has a 'part_category' field
         if (Array.isArray(data)) {
           const categoryList = (data)
           setCategories(categoryList);
@@ -37,39 +35,50 @@ const CategoryList = () => {
 
     fetchCategories();
   }, []);
-
   return (
     <div style={{ textAlign: 'center' }}>
       <h2>Car Part Categories</h2>
-
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <ul style={{
-        listStyle: 'none',
-        padding: 0,
-        maxWidth: '300px',
-        margin: '20px auto',
-        fontFamily: 'sans-serif',
-        border: '1px solid #ccc',
-        borderRadius: '4px',
-        overflow: 'hidden'
-      }}>
+      <ul style={styles.ul}>
         {categories.length > 0 ? (
           categories.map((cat, index) => (
-            <li key={index} style={{
-              padding: '12px',
-              borderBottom: index !== categories.length - 1 ? '1px solid #eee' : 'none',
-              backgroundColor: '#555'
-            }}>
+            <li
+              key={index}
+              style={styles.li}
+              onClick={() => onCategorySelect(cat)} 
+            >
               {cat}
             </li>
           ))
         ) : (
-          !error && <li>Loading...</li> // Show loading message if categories are empty and no error
+          !error && <li>Loading...</li>
         )}
       </ul>
     </div>
   );
+};
+
+const styles = {
+  ul: {
+    listStyle: 'none',
+    padding: 0,
+    maxWidth: '300px',
+    margin: '20px auto',
+    fontFamily: 'sans-serif',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    overflow: 'hidden',
+    cursor: 'pointer'
+  },
+  li: {
+    padding: '12px',
+    borderBottom: '1px solid #eee',
+    backgroundColor: '#555',
+    color: 'white',
+    transition: 'background 0.3s',
+    cursor: 'pointer'
+  }
 };
 
 export default CategoryList;

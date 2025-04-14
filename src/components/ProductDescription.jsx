@@ -1,7 +1,7 @@
 const ProductDescription = ({ part }) => {
     return (
       <div className="prod-desc-container">
-        <div className="desc prod-title"><p className="desctxt">{part.part_name}</p></div>
+        <div className="desc prod-title"><p className="desctxt">{part.part_type}</p></div>
         <div className="desc prod-stock"><p className="desctxt">In Stock</p></div>
         <div className="desc prod-price"><p className="desctxt">${part.price}</p></div>
         <div className="desc prod-desc"><p className="desctxt">Description: {part.part_description}</p></div>
