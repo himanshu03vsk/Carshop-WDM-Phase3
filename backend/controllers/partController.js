@@ -2,6 +2,8 @@ const Part  = require('../models/Part'); // Import your Part model
 const Sequelize = require('sequelize'); // Make sure Sequelize is imported for operations like Op.ne
 const PartColors = require('../models/PartColor'); // Import your PartColors model
 const PartReviews = require('../models/Review'); // Import your PartReviews model
+const sequelize = require('../config/db');
+const { QueryTypes } = require('sequelize');
 // Get related parts by category, excluding the current part
 exports.getRelatedParts = async (req, res) => {
   const { category, exclude } = req.query;
@@ -295,7 +297,7 @@ exports.getReviewsByPartId = async (req, res) => {
   }
 }
 
-
+// probides a list of categories that will be used to filter products
 exports.getCategoryList = async (req, res) => {
   try {
     const categories = await Part.findAll({
@@ -309,6 +311,82 @@ exports.getCategoryList = async (req, res) => {
     const categoryList = categories.map(item => item.part_category);
     res.json(categoryList);
   } catch (err) {
+    res.status(500).json({ message: "Database error", error: err.message });
+  }
+};
+
+// gets all relevant information of a product to be displayed in the catolgue
+exports.getPartsForList = async (req, res) => {
+  try {
+    const parts = await sequelize.query(`
+      SELECT 
+        p.part_id,
+        p.part_type,
+        p.price,
+        pi.path AS part_image,
+        c.make AS make,
+        c.model AS model,
+        c.car_year
+      FROM parts_of_cars poc
+      JOIN part p ON p.part_id = poc.part_id
+      LEFT JOIN part_image pi ON pi.part_id = p.part_id
+      JOIN car c ON c.make = poc.make AND c.model = poc.model AND c.car_year = poc.car_year
+    `, {
+      type: QueryTypes.SELECT
+    });
+
+    res.json(parts);
+  } catch (err) {
+    console.error("Error fetching parts:", err);
+    res.status(500).json({ message: "Database error", error: err.message });
+  }
+};
+
+// if a category is selected for filtering, returns only products of that category
+exports.getPartBySelectedCategory = async (req, res) => {
+  let { category } = req.query;
+
+  if (!category || !category.trim()) {
+    return res.status(400).json({ message: "Category is required" });
+  }
+
+  category = category.trim();
+
+  try {
+    const query = `
+      SELECT 
+        part.part_id,
+        part.part_name,
+        part.part_description,
+        part.price,
+        part.dimensions,
+        part.part_weight,
+        part.part_color,
+        part.part_type,
+        part.part_category,
+        parts_of_cars.make,
+        parts_of_cars.model,
+        parts_of_cars.car_year
+      FROM 
+        part
+      LEFT JOIN 
+        parts_of_cars ON part.part_id = parts_of_cars.part_id
+      WHERE 
+        part.part_category = :category;
+    `;
+
+    const parts = await sequelize.query(query, {
+      replacements: { category },
+      type: sequelize.QueryTypes.SELECT
+    });
+
+    if (parts.length === 0) {
+      return res.status(404).json({ message: "No parts found in this category" });
+    }
+
+    res.json(parts);
+  } catch (err) {
+    console.error("Error fetching parts by category:", err);
     res.status(500).json({ message: "Database error", error: err.message });
   }
 };

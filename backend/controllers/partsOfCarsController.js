@@ -1,4 +1,5 @@
 const PartsOfCars = require('../models/PartsOfCars');
+const Part = require('../models/Part');
 const Sequelize = require('sequelize');
 
 exports.getAllPartsOfCars = (req, res) => {
@@ -21,35 +22,45 @@ exports.deletePartsOfCars = (req, res) => {
     res.status(200).json({ message: 'deletePartsOfCars' });
 }
 
+// returns a list of products and their relative information when searching by car make, model and year
 exports.searchParts = async (req, res) => {
-  const { make, model, year } = req.query;
-
-  try {
-      // Construct the WHERE clause based on the query parameters
+    const { make, model, year } = req.query;
+  
+    try {
       const whereClause = {};
-
       if (make) whereClause.make = make;
       if (model) whereClause.model = model;
       if (year) whereClause.car_year = year;
-
-      console.log("Constructed WHERE clause:", whereClause); // Log the generated WHERE clause
-
-      // Perform the query using the constructed WHERE clause
-      const parts = await PartsOfCars.findAll({
-          where: whereClause,
-          attributes: ['part_id'],
+  
+      const matched = await PartsOfCars.findAll({
+        where: whereClause,
+        attributes: ['part_id', 'make', 'model', 'car_year']
       });
-
-      if (parts.length === 0) {
-          console.log("No parts found matching the criteria");
-      } else {
-          console.log("Found parts:", parts); // Log the found parts data
-      }
-
-      const partIds = parts.map((part) => part.part_id);
-      res.json(partIDs); // Send the found parts as the response
-  } catch (err) {
-      console.error('Error searching parts:', err.message); // Log the error
+  
+      if (!matched.length) return res.json([]);
+  
+      const partIds = matched.map(p => p.part_id);
+      const carMap = {};
+      matched.forEach(p => {
+        carMap[p.part_id] = {
+          make: p.make,
+          model: p.model,
+          car_year: p.car_year
+        };
+      });
+  
+      const parts = await Part.findAll({
+        where: { part_id: partIds }
+      });
+  
+      const result = parts.map(part => ({
+        ...part.toJSON(),
+        ...carMap[part.part_id] // attach car info
+      }));
+  
+      res.json(result);
+    } catch (err) {
+      console.error('Error in searchParts:', err.message);
       res.status(500).json({ message: 'Server error', error: err.message });
-  }
-};
+    }
+  };
