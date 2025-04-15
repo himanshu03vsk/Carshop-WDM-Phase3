@@ -6,6 +6,24 @@ exports.getAllPartsOfCars = (req, res) => {
     res.status(200).json({ message: 'getAllPartsOfCars' });
 }
 
+exports.getMakeModelYear = async (req, res) => {
+  const { part_id } = req.query;
+  try {
+      const part = await PartsOfCars.findAll({
+          where: { part_id },
+          attributes: ['make', 'model', 'car_year']
+      });
+
+      if (!part) return res.status(404).json({ message: 'Part not found' });
+
+      // Wrap the single object in an array
+      res.status(200).json(part);  // Send part as an array
+  } catch (err) {
+      console.error('Error in getMakeModelYear:', err.message);
+      res.status(500).json({ message: 'Server error', error: err.message });
+  }
+}
+
 exports.getPartsOfCarsById = (req, res) => {
     res.status(200).json({ message: 'getPartsOfCarsById' });
 }
