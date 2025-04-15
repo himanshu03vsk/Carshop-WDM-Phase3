@@ -1,6 +1,9 @@
 // carController.js
 const Sequelize = require('sequelize');
 const Cart = require('../models/Cart'); // Assuming you have a Cart model defined in models/cartModel.js
+const Part = require('../models/Part'); // Assuming you have a Part model defined in models/partModel.js
+Cart.belongsTo(Part, { foreignKey: 'part_id' });
+
 // Function to get all cars
 // exports.getCartById = async (req, res) => { 
 //     const {buyer_email } = req.params;
@@ -43,6 +46,26 @@ const Cart = require('../models/Cart'); // Assuming you have a Cart model define
 
 
 
+exports.clearCart = async (req, res) => {
+
+  const { buyer_email } = req.params;
+  try {
+    const deletedRows = await Cart.destroy({
+      where: { buyer_email }
+    });
+
+    if (deletedRows === 0) {
+      return res.status(404).json({ message: 'No cart items found for this email' });
+    }
+
+    res.status(200).json({ message: 'Cart cleared successfully' });
+  }
+  catch (error) {
+    console.error('Error clearing cart:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 exports.updateCartItem = async (req, res) => {
   const { part_id, buyer_email, color } = req.params;
   const { quantity } = req.query; // Use query to get the quantity
@@ -83,6 +106,42 @@ exports.updateCartItem = async (req, res) => {
   }
 };
 
+
+// Assuming Sequelize and relationships are set up properly
+
+exports.getCartById = async (req, res) => {
+  const { buyer_email } = req.params;
+
+  try {
+    const cart_items = await Cart.findAll({
+      where: { buyer_email },
+      include: [{
+        model: Part,
+        attributes: ['price']
+      }]
+    });
+
+    if (!cart_items || cart_items.length === 0) {
+      return res.status(200).json([]);
+    }
+
+    const parsedCart = cart_items.map(item => ({
+      part_id: item.part_id,
+      buyer_email: item.buyer_email,
+      quantity: parseInt(item.quantity, 10),
+      color: item.color,
+      unit_price: parseFloat(item.Part.price),
+      total_price: parseFloat(item.quantity) * parseFloat(item.Part.price),
+    }));
+
+    res.status(200).json(parsedCart);
+  } catch (err) {
+    console.error('Error fetching cart:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
 exports.deleteCartItem = async (req, res) => {
   const { part_id, buyer_email, color } = req.params;
 
@@ -106,31 +165,6 @@ exports.deleteCartItem = async (req, res) => {
   }
 };
 
-exports.getCartById = async (req, res) => {
-  const { buyer_email } = req.params;
-
-  try {
-      const cart_items = await Cart.findAll({ where: { buyer_email } });
-
-      if (!cart_items || cart_items.length === 0) {
-          return res.status(200).json([]);
-      }
-
-      // Format the output to ensure quantities are numbers and strip unnecessary metadata
-      const parsedCart = cart_items.map(item => ({
-          part_id: item.part_id,
-          buyer_email: item.buyer_email,
-          quantity: parseInt(item.quantity, 10),
-          color: item.color
-      }));
-
-      console.log('this is the parsed cart',parsedCart);
-      res.status(200).json(parsedCart);
-  } catch (err) {
-      console.error('Error fetching cart:', err);
-      res.status(500).json({ error: 'Internal server error' });
-  }
-};
 
 exports.addToCart = async (req, res) => {
     const { part_id, buyer_email, quantity, color } = req.body;

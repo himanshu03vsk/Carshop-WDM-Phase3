@@ -4,9 +4,8 @@ const cartController = require('../controllers/cartController');
 const authMiddleware = require('../middleware/authMiddleware');
 
 router.put('/updateCartItem/:buyer_email/:part_id/:color', authMiddleware, cartController.updateCartItem);
-router.delete('/:buyer_email/:part_id/:color', authMiddleware, cartController.deleteCartItem);
-
-router.put('/:buyer_email', authMiddleware, cartController.addToCart);
+router.delete('/clear/:buyer_email', authMiddleware, cartController.clearCart);
 router.get('/:buyer_email', authMiddleware, cartController.getCartById);
+router.put('/:buyer_email', authMiddleware, cartController.addToCart);
 
 module.exports = router;

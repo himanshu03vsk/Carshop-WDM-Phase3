@@ -1,12 +1,27 @@
-# React + Vite
+# CarShop - Web Application Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
+A full-stack web application developed as part of the Web Data Management course. The CarShop platform enables users to browse, purchase, and manage vehicle listings.
 
-Currently, two official plugins are available:
+## Technologies Used
+- Frontend: React
+- Backend: Express, Node
+- Database: MySQL
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Features
+- Vehicle listing and management
+- User authentication and authorization
+- Shopping cart functionality
+- Secure payment processing
 
-## Expanding the ESLint configuration
+## Development Period
+[Spring 2025] - Web Data Management Course, Masters Program
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+CREATE TABLE seller(
+    seller_email varchar(50) NOT NULL,
+    seller_org_name varchar(255) NOT NULL,
+    member_since date NOT NULL,
+    CONSTRAINT FK_seller FOREIGN key(seller_email) REFERENCES person(email)
+);  

@@ -19,8 +19,14 @@ const ProductActions = ({ product }) => {
 
         // Optionally set the default color if it's available
         if (data.colors && data.colors.length > 0) {
-          setSelectedColor(data.colors[0].color);  // Set the default color to the first color in the list
+          setColors(data.colors);
+          setSelectedColor(data.colors[0].color);
+        } else {
+          // If no colors are available, use a generic default option
+          setColors([{ color: 'Generic' }]);
+          setSelectedColor('Generic');
         }
+        
       } catch (err) {
         console.error('Error fetching product:', err);
       }
@@ -85,20 +91,16 @@ const ProductActions = ({ product }) => {
         {/* Color selection dropdown */}
         <label htmlFor="color-select">Select Color:</label>
         <select
-          id="color-select"
-          value={selectedColor}
-          onChange={(e) => setSelectedColor(e.target.value)}  // Update selected color
+        id="color-select"
+        value={selectedColor}
+        onChange={(e) => setSelectedColor(e.target.value)}
         >
-          {colors.length > 0 ? (
-            colors.map((color, index) => (
+              {colors.map((color, index) => (
               <option key={index} value={color.color}>
-                {color.color}
-              </option>
-            ))
-          ) : (
-            <option disabled>No colors available</option>
-          )}
-        </select>
+              {color.color}
+        </option>
+  ))}
+</select>
       </div>
 
       <div className="act-btn">

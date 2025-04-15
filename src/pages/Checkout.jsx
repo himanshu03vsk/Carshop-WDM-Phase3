@@ -1,70 +1,134 @@
-import React, { useState } from "react";
-import ShippingInfo from '../components/Shipping'; // BillingInfo Component
-import PaymentInfo from '../components/PaymentInfo'; // PaymentInfo Component
-// import { head } from "../../backend/routes/buyerAddressRoutes";
-// BillingInfo Component
+import React, { useState, useEffect } from "react";
+import ShippingInfo from '../components/Shipping';
+import PaymentInfo from '../components/PaymentInfo';
+import { useNavigate } from 'react-router-dom';
 
-
-
-
-
-
-
-// Main CheckoutPage Component
 const CheckoutPage = () => {
   const [addresses, setAddresses] = useState([]);
   const [cards, setCards] = useState([]);
-  
   const [billingAddress, setBillingAddress] = useState(null);
   const [paymentCard, setPaymentCard] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const navigate = useNavigate();
 
   const fetchAddressAndPayment = async () => {
     try {
-      console.log("before fetching data")
-      const addressResponse = await fetch(`http://localhost:3000/api/buyer-addresses/${JSON.parse(localStorage.getItem('user'))['email']}`);
-      const paymentResponse = await fetch(`http://localhost:3000/api/payments/${JSON.parse(localStorage.getItem('user'))['email']}`,
-     { headers : { 'Content-Type': 'application/json', 
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-      }   
-     })
-    
+      const user = JSON.parse(localStorage.getItem('user'));
+      const token = localStorage.getItem('token');
 
-      console.log("after fetching data")
-
+      const [addressResponse, paymentResponse] = await Promise.all([
+        fetch(`http://localhost:3000/api/buyer-addresses/${user.email}`),
+        fetch(`http://localhost:3000/api/payments/${user.email}`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }),
+      ]);
 
       if (addressResponse.ok && paymentResponse.ok) {
         const addressData = await addressResponse.json();
         const paymentData = await paymentResponse.json();
-      console.log('data', addressData, paymentData);
         setAddresses(addressData);
         setCards(paymentData.map(card => `Card **** ${card.card_no.slice(-4)}`));
+      } else {
+        console.error("Failed to fetch address or payment data");
       }
-
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetchAddressAndPayment();
   }, []);
+
   const handleNewAddress = () => {
     const newAddress = prompt("Enter new address:");
-    setAddresses([...addresses, newAddress]);
+    if (newAddress) setAddresses([...addresses, newAddress]);
   };
 
   const handleNewCard = () => {
     const newCard = prompt("Enter new card number:");
-    setCards([...cards, `Card **** ${newCard.slice(-4)}`]);
+    if (newCard) setCards([...cards, `Card **** ${newCard.slice(-4)}`]);
   };
 
-  const handleMakePayment = () => {
+  const handleMakePayment = async () => {
     if (!billingAddress || !paymentCard) {
       alert("Please complete billing and payment information.");
       return;
     }
 
-    alert(`Payment Successful! Billing Address: ${billingAddress}, Card: ${paymentCard}`);
+    setIsProcessing(true);
+
+    const userEmail = JSON.parse(localStorage.getItem('user'))?.email;
+    const token = localStorage.getItem('token');
+
+    try {
+      // Step 1: Create the order
+      const orderResponse = await fetch('http://localhost:3000/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          buyer_email: userEmail,
+          shipping_address: billingAddress,
+          payment_method: paymentCard,
+        }),
+      });
+
+      if (!orderResponse.ok) throw new Error("Failed to create order");
+
+      const { order_id } = await orderResponse.json();
+
+      // Step 2: Fetch cart items
+      const cartResponse = await fetch(`http://localhost:3000/api/carts/${userEmail}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const cartItems = await cartResponse.json();
+
+      if (!cartItems || cartItems.length === 0) {
+        alert("Your cart is empty.");
+        setIsProcessing(false);
+        return;
+      }
+
+      // Step 3: Create shipments
+      for (const item of cartItems) {
+        await fetch('http://localhost:3000/api/shipments', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            order_id,
+            part_id: item.part_id,
+            color: item.color,
+            quantity_purchased: item.quantity,
+            shipment_cost: item.total_price,
+          }),
+        });
+      }
+
+      // Step 4: Clear the cart
+      await fetch(`http://localhost:3000/api/carts/clear/${userEmail}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      alert("Order placed successfully!");
+      navigate('/order-confirmation');
+
+    } catch (err) {
+      console.error("Checkout Error:", err);
+      alert("Something went wrong during checkout.");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -84,7 +148,9 @@ const CheckoutPage = () => {
       />
 
       <div>
-        <button onClick={handleMakePayment}>Make Payment</button>
+        <button onClick={handleMakePayment} disabled={isProcessing}>
+          {isProcessing ? "Processing..." : "Make Payment"}
+        </button>
       </div>
     </div>
   );

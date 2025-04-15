@@ -28,6 +28,7 @@ const partsOfCarsRoutes = require('./routes/partsOfCarsRoutes');
 const buyerAddressRoutes = require('./routes/buyerAddressRoutes');
 const partImageRoutes = require('./routes/partImageRoutes');
 const authRoutes = require('./routes/authRoutes');
+const orderRoutes = require('./routes/orderRoutes'); // Import order routes
 
 // Associations
 Seller.hasMany(PartSoldBy, { foreignKey: 'seller_email' });
@@ -76,6 +77,7 @@ app.use('/api/parts-of-cars', partsOfCarsRoutes);
 app.use('/api/buyer-addresses', buyerAddressRoutes);
 app.use('/api/part-images', partImageRoutes);
 app.use('/api/auth', authRoutes); // Authentication routes
+app.use('/api/orders', orderRoutes); // Order routes
 
 // Syncing database and starting the server
 
