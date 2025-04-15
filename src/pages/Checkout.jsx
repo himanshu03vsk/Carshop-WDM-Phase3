@@ -1,134 +1,93 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
+import ShippingInfo from '../components/Shipping'; // BillingInfo Component
+import PaymentInfo from '../components/PaymentInfo'; // PaymentInfo Component
+// import { head } from "../../backend/routes/buyerAddressRoutes";
+// BillingInfo Component
 
-const Checkout = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        address: '',
-        city: '',
-        state: '',
-        zip: '',
-        selectedCard: '',
-    });
 
-    const [cards, setCards] = useState([]);
 
-    useEffect(() => {
-        // Fetch card information from the database
-        const fetchCards = async () => {
-            try {
-                const response = await fetch('/api/cards'); // Replace with your API endpoint
-                const data = await response.json();
-                setCards(data);
-            } catch (error) {
-                console.error('Error fetching cards:', error);
-            }
-        };
 
-        fetchCards();
-    }, []);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log('Form submitted:', formData);
-        // Add logic to process the checkout
-    };
 
-    return (
-        <div className="checkout-page">
-            <h1>Checkout</h1>
-            <form onSubmit={handleSubmit}>
-                <h2>Billing Information</h2>
-                <div>
-                    <label>Name:</label>
-                    <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Address:</label>
-                    <input
-                        type="text"
-                        name="address"
-                        value={formData.address}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>City:</label>
-                    <input
-                        type="text"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>State:</label>
-                    <input
-                        type="text"
-                        name="state"
-                        value={formData.state}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Zip Code:</label>
-                    <input
-                        type="text"
-                        name="zip"
-                        value={formData.zip}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+// Main CheckoutPage Component
+const CheckoutPage = () => {
+  const [addresses, setAddresses] = useState([]);
+  const [cards, setCards] = useState([]);
+  
+  const [billingAddress, setBillingAddress] = useState(null);
+  const [paymentCard, setPaymentCard] = useState(null);
 
-                <h2>Payment Information</h2>
-                <div>
-                    <label>Select Card:</label>
-                    <select
-                        name="selectedCard"
-                        value={formData.selectedCard}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="" disabled>
-                            Select a card
-                        </option>
-                        {cards.map((card) => (
-                            <option key={card.id} value={card.id}>
-                                {`**** **** **** ${card.last4} (Exp: ${card.expiryDate})`}
-                            </option>
-                        ))}
-                    </select>
-                </div>
+  const fetchAddressAndPayment = async () => {
+    try {
+      console.log("before fetching data")
+      const addressResponse = await fetch(`http://localhost:3000/api/buyer-addresses/${JSON.parse(localStorage.getItem('user'))['email']}`);
+      const paymentResponse = await fetch(`http://localhost:3000/api/payments/${JSON.parse(localStorage.getItem('user'))['email']}`,
+     { headers : { 'Content-Type': 'application/json', 
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+      }   
+     })
+    
 
-                <button type="submit">Place Order</button>
-            </form>
-        </div>
-    );
+      console.log("after fetching data")
+
+
+      if (addressResponse.ok && paymentResponse.ok) {
+        const addressData = await addressResponse.json();
+        const paymentData = await paymentResponse.json();
+      console.log('data', addressData, paymentData);
+        setAddresses(addressData);
+        setCards(paymentData.map(card => `Card **** ${card.card_no.slice(-4)}`));
+      }
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchAddressAndPayment();
+  }, []);
+  const handleNewAddress = () => {
+    const newAddress = prompt("Enter new address:");
+    setAddresses([...addresses, newAddress]);
+  };
+
+  const handleNewCard = () => {
+    const newCard = prompt("Enter new card number:");
+    setCards([...cards, `Card **** ${newCard.slice(-4)}`]);
+  };
+
+  const handleMakePayment = () => {
+    if (!billingAddress || !paymentCard) {
+      alert("Please complete billing and payment information.");
+      return;
+    }
+
+    alert(`Payment Successful! Billing Address: ${billingAddress}, Card: ${paymentCard}`);
+  };
+
+  return (
+    <div className="checkout-page">
+      <h1>Checkout</h1>
+
+      <ShippingInfo
+        addresses={addresses}
+        onAddressSelect={setBillingAddress}
+        onNewAddress={handleNewAddress}
+      />
+
+      <PaymentInfo
+        cards={cards}
+        onCardSelect={setPaymentCard}
+        onNewCard={handleNewCard}
+      />
+
+      <div>
+        <button onClick={handleMakePayment}>Make Payment</button>
+      </div>
+    </div>
+  );
 };
 
-export default Checkout;
+export default CheckoutPage;
