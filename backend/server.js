@@ -15,6 +15,8 @@ const BuyerAddress = require('./models/BuyerAddress');
 const PartImage = require('./models/PartImage');
 const PartSoldBy = require('./models/PartSoldBy');
 const PartsOfCars = require('./models/PartsOfCars');
+const Order = require('./models/Order'); // Import Order model
+// const User = require('./models/User'); // Import User model
 
 // Import routes
 const partRoutes = require('./routes/partRoutes');
@@ -31,9 +33,25 @@ const authRoutes = require('./routes/authRoutes');
 const orderRoutes = require('./routes/orderRoutes'); // Import order routes
 
 // Associations
+
+
+Order.hasMany(Shipment, { foreignKey: 'order_id' });
+Shipment.belongsTo(Order, { foreignKey: 'order_id' });
+
+Shipment.belongsTo(Part, { foreignKey: 'part_id' });
+Part.hasMany(Shipment, { foreignKey: 'part_id' });
+
+// Order hasMany Shipments
+
+// Shipment belongsTo Order
+
+// Shipment belongsTo Part
+
 Seller.hasMany(PartSoldBy, { foreignKey: 'seller_email' });
 PartSoldBy.belongsTo(Seller, { foreignKey: 'seller_email' });
 /*
+
+
 Part.hasMany(PartSoldBy, { foreignKey: 'part_id' });
 PartSoldBy.belongsTo(Part, { foreignKey: 'part_id' });
 
@@ -78,6 +96,7 @@ app.use('/api/buyer-addresses', buyerAddressRoutes);
 app.use('/api/part-images', partImageRoutes);
 app.use('/api/auth', authRoutes); // Authentication routes
 app.use('/api/orders', orderRoutes); // Order routes
+app.use('/api/reset-password', authRoutes); // Reset password routes
 
 // Syncing database and starting the server
 

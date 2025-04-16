@@ -149,3 +149,39 @@ exports.logout = (req, res) => {
     res.status(200).json({ message: 'logout' });
 }
 
+
+exports.resetPassword = async (req, res) => {
+    
+    const { email, currentPassword, confirmPassword , newPassword } = req.body;
+    console.log('Request body:', req.body);  // Log the request body for debugging
+    if ( !confirmPassword || !newPassword || !email || !currentPassword) {
+        return res.status(400).json({ message: 'passwords are required' });
+    }
+
+    try{
+        // Check if the email exists in the database
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+
+        // Compare the password with the hashed password in the database
+        const isMatch = await bcrypt.compare(currentPassword, user.p_password);
+        if (!isMatch) {
+            return res.status(400).json({ message: 'Invalid email or password' });
+        }
+
+        // Hash the new password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // Update the user's password in the database
+        await User.update({ p_password: hashedPassword }, { where: { email } });
+
+        res.status(200).json({ message: 'Password updated successfully' });
+    }
+catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+

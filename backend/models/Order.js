@@ -3,6 +3,8 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const Buyer = require('./Buyer');
 
+
+
 const Order = sequelize.define('Order', {
     order_id: {
       type: DataTypes.INTEGER,
@@ -29,7 +31,7 @@ const Order = sequelize.define('Order', {
       allowNull: false,
     }
   }, {
-    tableName: 'order',
+    tableName: 'orders',
     timestamps: false
   });
   
