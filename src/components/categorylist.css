@@ -1,0 +1,20 @@
+.partUL {
+    list-style: none;
+    padding: 0;
+    max-width: 300px;
+    margin: 20px auto;
+    font-family: sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.partLI {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    background-color: #555;
+    color: white;
+    transition: 0.3s;
+    cursor: pointer;
+}

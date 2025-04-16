@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './categorylist.css';
 
 const CategoryList = ({ onCategorySelect }) => {
   const [categories, setCategories] = useState([]);
@@ -40,12 +41,11 @@ const CategoryList = ({ onCategorySelect }) => {
       <h2>Car Part Categories</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <ul style={styles.ul}>
+      <ul className='partUL'>
         {categories.length > 0 ? (
           categories.map((cat, index) => (
-            <li
+            <li className='partLI'
               key={index}
-              style={styles.li}
               onClick={() => onCategorySelect(cat)} 
             >
               {cat}
@@ -59,26 +59,5 @@ const CategoryList = ({ onCategorySelect }) => {
   );
 };
 
-const styles = {
-  ul: {
-    listStyle: 'none',
-    padding: 0,
-    maxWidth: '300px',
-    margin: '20px auto',
-    fontFamily: 'sans-serif',
-    border: '1px solid #ccc',
-    borderRadius: '4px',
-    overflow: 'hidden',
-    cursor: 'pointer'
-  },
-  li: {
-    padding: '12px',
-    borderBottom: '1px solid #eee',
-    backgroundColor: '#555',
-    color: 'white',
-    transition: 'background 0.3s',
-    cursor: 'pointer'
-  }
-};
 
 export default CategoryList;

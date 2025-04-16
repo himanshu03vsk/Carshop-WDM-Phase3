@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './carsearch.css';
 
 const CarSearch = ({ onSearch }) => {
   const [make, setMake] = useState('');
@@ -12,72 +13,41 @@ const CarSearch = ({ onSearch }) => {
   };
 
   return (
-    <div style={{ padding: '30px', width: '80%', fontFamily: 'sans-serif' }}>
+    <div style={{ padding: '30px', width: '70%', fontFamily: 'sans-serif' }}>
       <h2 style={{ textAlign: 'center' }}>Search Car Parts</h2>
 
-      <form
+      <form className='CSform'
         onSubmit={handleSearch}
-        style={{
-          display: 'inline-block',
-          justifyContent: 'space-between',
-          textAlign: 'justify',
-          gap: '15px',
-          width: '100%',
-          backgroundColor: '#555',
-          padding: '20px',
-          borderRadius: '8px',
-          flexWrap: 'wrap',
-        }}
       >
         <input
           type="text"
           placeholder="Make (e.g. Toyota)"
           value={make}
           onChange={(e) => setMake(e.target.value)}
-          style={inputStyle}
+          className="CSinput"
         />
         <input
           type="text"
           placeholder="Model (e.g. Corolla)"
           value={model}
           onChange={(e) => setModel(e.target.value)}
-          style={inputStyle}
+          className="CSinput"
         />
         <input
           type="number"
           placeholder="Year (e.g. 2020)"
           value={year}
           onChange={(e) => setYear(e.target.value)}
-          style={inputStyle}
+          className="CSinput"
         />
-        <button
+        <button className='CSbutton'
           type="submit"
-          style={{
-            padding: '10px',
-            margin: '5px',
-            backgroundColor: '#333',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            alignSelf: 'flex-end',
-            width: '20%',
-          }}
         >
           Search
         </button>
       </form>
     </div>
   );
-};
-
-const inputStyle = {
-  padding: '10px',
-  margin: '5px',
-  border: '1px solid #ccc',
-  borderRadius: '4px',
-  fontSize: '14px',
-  width: '20%',
 };
 
 export default CarSearch;
