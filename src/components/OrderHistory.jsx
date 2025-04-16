@@ -35,6 +35,7 @@ const OrderHistory = () => {
       ) : orders.length === 0 ? (
         <p>No orders found.</p>
       ) : (
+        <div className="scrollablediv overflow-y-auto max-h-96">
         <ul>
           {orders.map((order) => {
             const address = JSON.parse(order.shipping_address);
@@ -56,7 +57,10 @@ const OrderHistory = () => {
         </li>
       ))}
     </ul>
+    
   </div>
+  
+  
 ) : (
   <p>No items in this order.</p>
 )}
@@ -65,6 +69,7 @@ const OrderHistory = () => {
             );
           })}
         </ul>
+        </div>
       )}
     </div>
   );

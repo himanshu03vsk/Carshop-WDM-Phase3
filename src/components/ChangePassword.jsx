@@ -39,8 +39,10 @@ const ChangePassword = () => {
   };
 
   return (
+    <div className="section mt-10">
     <form onSubmit={handleSubmit} className="max-w-sm mx-auto space-y-4">
       <input
+        className='w-full p-2 border rounded'
         type="password"
         name="currentPassword"
         placeholder="Current Password"
@@ -49,6 +51,7 @@ const ChangePassword = () => {
         required
       />
       <input
+        className="w-full p-2 border rounded"
         type="password"
         name="newPassword"
         placeholder="New Password"
@@ -57,6 +60,7 @@ const ChangePassword = () => {
         required
       />
       <input
+        className="w-full p-2 border rounded"
         type="password"
         name="confirmPassword"
         placeholder="Confirm New Password"
@@ -64,9 +68,12 @@ const ChangePassword = () => {
         onChange={handleChange}
         required
       />
-      <button type="submit">Change Password</button>
+      <button 
+      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      type="submit">Change Password</button>
       {message && <p className="text-red-500">{message}</p>}
     </form>
+    </div>
   );
 };
 

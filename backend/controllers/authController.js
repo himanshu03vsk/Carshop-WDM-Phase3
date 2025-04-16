@@ -185,3 +185,47 @@ catch (err) {
     }
 };
 
+
+
+exports.getUserDetails = async (req, res) => {
+    const { buyer_email } = req.params; // Get the user ID from the request parameters
+
+    try {
+        // Find the user by ID
+        const user = await User.findOne({ where: { email:buyer_email } });
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Return the user details
+        res.status(200).json(user);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+
+exports.updateUserDetails = async (req, res) => {
+    const {fname, lname, dob, phone } = req.body;
+    const { buyer_email } = req.params; // Get the user ID from the request parameters
+
+    try {
+        const user = await User.findOne({ where: { email:buyer_email } });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Update the user details
+        await User.update({ fname, lname, dob, phone }, { where: { email:buyer_email } });
+        res.status(200).json({ message: 'User details updated successfully' });
+    }
+
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+
+
+}; 
