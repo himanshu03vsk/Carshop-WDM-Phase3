@@ -10,13 +10,14 @@ const AccountSetting = () => (
       <div className="container" style={{ marginTop: "20px", display: "flex", flexDirection: "row"}}>
       <div className="history" style={{display: "flex", flexDirection: "column", flex: "1", flexGrow: "1"}}>
       <OrderHistory />
+      <EmailPreferences />
+
       </div>
       <div className="rest" style={{display: "flex", flexDirection: "column", flex: "1", flexGrow: "1"}}>
       
       <UpdateProfile />
       
       <ChangePassword />
-      <EmailPreferences />
       </div>
       </div>
     </div>

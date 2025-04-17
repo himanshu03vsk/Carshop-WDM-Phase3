@@ -28,47 +28,71 @@ const OrderHistory = () => {
   }, [buyer_email]);
 
   return (
-    <div className="section">
-      <h3>Order History</h3>
+    <div className="section bg-gray-100 p-6 rounded-xl shadow-lg max-w-4xl mx-auto my-8">
+      <h3 className="text-2xl font-bold text-gray-800 mb-6">Order History</h3>
       {loading ? (
-        <p>Loading...</p>
+        <p className="text-gray-600 text-center py-4">Loading...</p>
       ) : orders.length === 0 ? (
-        <p>No orders found.</p>
+        <p className="text-gray-600 text-center py-4">No orders found.</p>
       ) : (
-        <div className="scrollablediv overflow-y-auto max-h-96">
-        <ul>
+        <div className="scrollablediv p-4 rounded-lg overflow-y-auto max-h-[32rem] space-y-4">
           {orders.map((order) => {
             const address = JSON.parse(order.shipping_address);
             return (
-              <li key={order.order_id} className="mb-6 border-b pb-4">
-                <p><strong>Order ID:</strong> {order.order_id}</p>
-                <p><strong>Date:</strong> {new Date(order.order_date).toLocaleString()}</p>
-                <p><strong>Payment:</strong> {order.payment_method}</p>
-                <p><strong>Shipping:</strong> {address.line1}, {address.city}, {address.state_in} {address.zip_code}</p>
-                {console.log('Order:', order)}
-                {order.Shipments?.length > 0 ? (
-  <div className="mt-2 ml-4">
-    <p><strong>Items:</strong></p>
-    <ul className="list-disc pl-4">
-      {order.Shipments.map((shipment, idx) => (
-        <li key={idx}>
-          <p>• <strong>{shipment.Part.part_name}</strong> — {shipment.color}, Qty: {shipment.quantity_purchased} <br />
-          <em>Status:</em> {shipment.shipment_status}</p>
-        </li>
-      ))}
-    </ul>
-    
-  </div>
-  
-  
-) : (
-  <p>No items in this order.</p>
-)}
-
-              </li>
+              <div
+                key={order.order_id}
+                className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
+              >
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center border-b pb-3">
+                    <p className="text-lg font-semibold text-gray-800">Order #{order.order_id}</p>
+                    <p className="text-sm text-gray-600">
+                      {new Date(order.order_date).toLocaleString()}
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4 py-2">
+                    <p className="text-gray-700">
+                      <span className="font-medium">Payment Method:</span> {order.payment_method}
+                    </p>
+                    <p className="text-gray-700">
+                      <span className="font-medium">Shipping Address:</span> {address.line1}, {address.city}, {address.state_in} {address.zip_code}
+                    </p>
+                  </div>
+                  {order.Shipments?.length > 0 ? (
+                    <div className="mt-4">
+                      <p className="font-medium text-gray-800 mb-2">Items:</p>
+                      <ul className="bg-gray-50 rounded-lg p-4 space-y-2">
+                        {order.Shipments.map((shipment, idx) => (
+                          <li
+                            key={`${order.order_id}-${idx}`}
+                            className="flex justify-between items-center border-b last:border-0 pb-2"
+                          >
+                            <div>
+                              <p className="font-medium text-gray-800">{shipment.Part.part_name}</p>
+                              <p className="text-sm text-gray-600">
+                                Color: {shipment.color} | Quantity: {shipment.quantity_purchased}
+                              </p>
+                            </div>
+                            <span
+                              className={`px-3 py-1 rounded-full text-sm ${
+                                shipment.shipment_status === 'Delivered'
+                                  ? 'bg-green-100 text-green-800'
+                                  : 'bg-yellow-100 text-yellow-800'
+                              }`}
+                            >
+                              {shipment.shipment_status}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <p className="text-gray-600 italic">No items in this order.</p>
+                  )}
+                </div>
+              </div>
             );
           })}
-        </ul>
         </div>
       )}
     </div>

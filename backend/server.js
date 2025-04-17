@@ -21,6 +21,7 @@ const Order = require('./models/Order'); // Import Order model
 // Import routes
 const partRoutes = require('./routes/partRoutes');
 const carRoutes = require('./routes/carRoutes');
+const buyerRoutes = require('./routes/buyerRoutes');
 const userRoutes = require('./routes/userRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
@@ -84,6 +85,7 @@ app.use(cors({
 }));
 
 // Routes
+app.use('/api/buyer', buyerRoutes); // Buyer routes
 app.use('/api/parts', partRoutes);
 app.use('/api/cars', carRoutes);
 app.use('/api/users', userRoutes);

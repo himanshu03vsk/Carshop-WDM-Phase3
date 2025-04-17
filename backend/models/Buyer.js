@@ -11,6 +11,12 @@ const Buyer = sequelize.define('Buyer', {
             model: Person,
             key: 'email'
         }
+    },
+    
+    notification_preferences: {
+        type: DataTypes.STRING(6),
+        allowNull: true,
+        defaultValue: 'email'
     }
 }, {
     tableName: 'buyer',
