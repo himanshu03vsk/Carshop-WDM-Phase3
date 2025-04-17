@@ -32,6 +32,7 @@ const buyerAddressRoutes = require('./routes/buyerAddressRoutes');
 const partImageRoutes = require('./routes/partImageRoutes');
 const authRoutes = require('./routes/authRoutes');
 const orderRoutes = require('./routes/orderRoutes'); // Import order routes
+const enquiryRoutes = require('./routes/enquiryRoutes'); // Import enquiry routes
 
 // Associations
 
@@ -99,6 +100,7 @@ app.use('/api/part-images', partImageRoutes);
 app.use('/api/auth', authRoutes); // Authentication routes
 app.use('/api/orders', orderRoutes); // Order routes
 app.use('/api/reset-password', authRoutes); // Reset password routes
+app.use('/api/enquiry', enquiryRoutes ); // Update profile routes
 
 // Syncing database and starting the server
 
