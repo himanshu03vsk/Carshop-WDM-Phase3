@@ -20,6 +20,8 @@ const Navbar = () => {
             <ul>
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/contact">About Us</Link></li>
+                <li><Link to="/chat-with-seller">Chat with us</Link></li>
+
 
                 {/* If token exists, show the Logout button */}
                 {token ? (

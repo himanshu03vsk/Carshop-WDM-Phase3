@@ -25,5 +25,9 @@ const Seller = sequelize.define('Seller', {
     timestamps: false
 });
 
+// In your model setup (can be at the bottom of models/Seller.js or in a central model index.js):
+Seller.belongsTo(Person, { foreignKey: 'seller_email' });
+
+
 module.exports = Seller;
     

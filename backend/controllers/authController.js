@@ -105,16 +105,13 @@ exports.login = async (req, res) => {
     console.log('Request body:', req.body);  // Log the request body for debugging
     
     // Validate the request body
-    console.log('I am here')
     if (!email || !p_password) {
         return res.status(400).json({ message: 'Email and password are required' });
     }
 
     // Check if the email exists in the database
     try {
-        console.log(User)
         const user = await User.findOne({ where: { email } });
-        console.log(user)
         if (!user) {
             return res.status(400).json({ message: 'Invalid email or password' });
         }
