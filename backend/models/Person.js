@@ -26,10 +26,16 @@ const Person = sequelize.define('Person', {
     phone: {
         type: DataTypes.STRING(15),
         allowNull: false
-    }
+    },
+    carrier: {
+        type: DataTypes.ENUM,
+        values: ['Verizon', 'AT&T', 'T-Mobile', 'Sprint'],  // ENUM list of popular U.S. carriers
+        allowNull: false
+      },
 }, {
     tableName: 'person',
     timestamps: false
 });
+
 
 module.exports = Person;

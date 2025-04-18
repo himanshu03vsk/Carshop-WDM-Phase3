@@ -56,7 +56,7 @@ dotenv.config();
 
 exports.register = async (req, res) => {
 
-    const { email, p_password, fname, lname, dob, phone } = req.body;
+    const { email, p_password, fname, lname, dob, phone, carrier } = req.body;
     console.log('Request body:', req.body);  // Log the request body for debugging
 
     // Validate the request body
@@ -86,7 +86,8 @@ exports.register = async (req, res) => {
             fname,
             lname,
             dob,
-            phone
+            phone,
+            carrier
         });
 
         // Return a success response with the newly created user data

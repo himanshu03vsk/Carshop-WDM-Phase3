@@ -11,6 +11,7 @@ const Register = () => {
     const [dob, setDob] = useState('');
     const [phone, setPhone] = useState('');
     const [error, setError] = useState(null);
+    const [carrier, setCarrier] = useState(''); // Added carrier state
 
     const { login } = useAuth(); // Access login function from context
     const navigate = useNavigate(); // To navigate after registration
@@ -25,7 +26,8 @@ const Register = () => {
                 fname,
                 lname,
                 dob,
-                phone
+                phone,
+                carrier
             });
 
             // Handle successful registration (e.g., redirect to login page)
@@ -105,6 +107,22 @@ const Register = () => {
                         required
                     />
                 </div>
+
+                <div>
+            <label htmlFor="carrier">Carrier</label>
+            <select
+                id="carrier"
+                value={carrier}
+                onChange={(e) => setCarrier(e.target.value)}
+                required
+            >
+                <option value="">Select a Carrier</option>
+                <option value="Verizon">Verizon</option>
+                <option value="AT&T">AT&T</option>
+                <option value="T-Mobile">T-Mobile</option>
+                <option value="Sprint">Sprint</option>
+            </select>
+        </div>
 
                 {error && <div style={{ color: 'red' }}>{error}</div>}
                 <button type="submit">Register</button>
