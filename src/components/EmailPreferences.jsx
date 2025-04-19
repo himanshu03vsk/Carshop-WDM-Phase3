@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import './AccountSetting.css';
+
 
 const EmailPreferences = () => {
   const email = JSON.parse(localStorage.getItem('user'))?.email;

@@ -61,9 +61,7 @@
   max-height: fit-content;
 }
 
-.desc {
-  max-height: 30px;
-}
+
 .desctxt {
   max-height: fit-content;
   /* max-width: fit-content; */

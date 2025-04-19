@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './AccountSetting.css';
 
 const UpdateProfile = () => {
   const [profile, setProfile] = useState({
@@ -68,7 +69,7 @@ const UpdateProfile = () => {
   };
 
   return (
-    <div className="section max-w-md mx-auto">
+    <div className="section mx-auto mt-10 ml-10 px-5 py-5 rounded-lg shadow-md">
       <h3 className="text-xl font-bold mb-4">Update Profile Details</h3>
       {loading ? (
         <p>Loading...</p>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './AccountSetting.css';
 
 const ChangePassword = () => {
   const [form, setForm] = useState({
@@ -39,7 +40,7 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="section mt-10">
+    <div className="section mt-10 ml-10 px-5 py-5 rounded-lg shadow-md">
     <form onSubmit={handleSubmit} className="max-w-sm mx-auto space-y-4">
       <input
         className='w-full p-2 border rounded'

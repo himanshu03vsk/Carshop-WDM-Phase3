@@ -103,7 +103,7 @@ const ProductActions = ({ product }) => {
 </select>
       </div>
 
-      <div className="act-btn">
+      <div className="act-btn my-5 py-2 px-4 rounded-lg bg-gray-600 text-white border-2 border-gray-600 hover:bg-gray-700 hover:border-gray-700 focus:ring-2 focus:ring-gray-500 transition-all duration-300">
         <label htmlFor="quantity">Quantity:</label>
         <input
           type="number"
@@ -116,7 +116,7 @@ const ProductActions = ({ product }) => {
         />
       </div>
 
-      <button className="act-btn crt-btn" onClick={handleAddToCart}>
+      <button className="act-btn crt-btn flex-1 my-5 py-2 px-4 rounded-lg bg-gray-600 text-white border-2 border-gray-600 hover:bg-gray-700 hover:border-gray-700 focus:ring-2 focus:ring-gray-500 transition-all duration-300" onClick={handleAddToCart}>
         {buttonState}
       </button>
     </div>

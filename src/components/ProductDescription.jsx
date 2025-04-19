@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 const ProductDescription = ({ part }) => {
-
   const [part_car_details, setPart_car_details] = useState([]);
 
   useEffect(() => {
@@ -18,26 +17,53 @@ const ProductDescription = ({ part }) => {
     fetchCarDetails();
   }, [part.part_id]);
 
-
-
-    return (
-      <div className="prod-desc-container">
-        <div className="desc prod-title"><p className="desctxt">{part.part_type}</p></div>
-        <div className="desc prod-stock"><p className="desctxt">In Stock</p></div>
-        <div className="desc prod-price"><p className="desctxt">${part.price}</p></div>
-        <div className="desc prod-desc"><p className="desctxt">Description: {part.part_description}</p></div>
-        <div className="desc prod-dim"><p className="desctxt">Dimensions: {part.dimensions}</p></div>
-        <div className="desc prod-weight"><p className="desctxt">Weight: {part.part_weight} lbs</p></div>
-        <div className="desc prod-type"><p className="desctxt">Type: {part.part_type}</p></div>
-        <div className="desc prod-category"><p className="desctxt">Category: {part.part_category}</p></div>
-        <div className="desc prod-car-details"><p className="desctxt">For Cars:</p></div>
-        <div className="desc prod-car-details-list">
-          {part_car_details.map((car, index) => (
-            <p key={index} className="desctxt">{car.make} {car.model} {car.car_year}</p>
-          ))} 
+  return (
+    <div className="prod-desc-container max-w-4xl mx-auto p-6 bg-gray-800 text-white rounded-lg shadow-lg">
+      <div className="desc prod-title mb-4">
+        <p className="text-2xl font-semibold">{part.part_type}</p>
       </div>
+
+      <div className="desc prod-stock mb-4">
+        <p className="text-xl text-green-400">In Stock</p>
       </div>
-    );
+
+      <div className="desc prod-price mb-4">
+        <p className="text-2xl font-bold">${part.price}</p>
+      </div>
+
+      <div className="desc prod-desc mb-4">
+        <p className="text-sm">{part.part_description}</p>
+      </div>
+
+      <div className="desc prod-dim mb-4">
+        <p className="text-sm">Dimensions: {part.dimensions}</p>
+      </div>
+
+      <div className="desc prod-weight mb-4">
+        <p className="text-sm">Weight: {part.part_weight} lbs</p>
+      </div>
+
+      <div className="desc prod-type mb-4">
+        <p className="text-sm">Type: {part.part_type}</p>
+      </div>
+
+      <div className="desc prod-category mb-4">
+        <p className="text-sm">Category: {part.part_category}</p>
+      </div>
+
+      <div className="desc prod-car-details mb-4">
+        <p className="text-lg font-semibold">For Cars:</p>
+      </div>
+
+      <div className="desc prod-car-details-list flex flex-row gap-2 space-y-2">
+        {part_car_details.map((car, index) => (
+          <p key={index} className="text-sm text-gray-300">
+            {car.make} {car.model} {car.car_year}
+          </p>
+        ))}
+      </div>
+    </div>
+  );
 };
-  export default ProductDescription;
-  
+
+export default ProductDescription;

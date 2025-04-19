@@ -34,6 +34,9 @@ function App() {
     <Router>
       <Routes>
         <Route element={<Layout />}>   {/* */}
+  {/* The rest of your page content */}
+
+
 
           <Route path='/' element={<Home />}></Route>    {/* */}
           <Route path='/contact' element={<ContactUs />}></Route>

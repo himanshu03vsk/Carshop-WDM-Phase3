@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import './cart.css';
 
 const ShoppingCart = () => {
@@ -120,53 +120,61 @@ const ShoppingCart = () => {
     };
 
     return (
-        <div>
+        <div className="container flex-col flex mx-auto p-6">
             {cartItems.map((item) => {
                 const key = getKey(item);
                 return (
-                    <div key={key} className="card">
-                        <h3>{item.part_name}</h3>
-                        <p>Price: ${item.price}</p>
+                    <div key={key} className="flex flex-col sm:flex-row border-b-2 py-4 mb-4 bg-gray-900 rounded-lg shadow-lg">
+                        <div className="sm:w-1/4">
+                            <img src={`/images/${item.main_image}`} alt={item.part_name} className="w-full h-auto object-cover rounded-md"/>
+                        </div>
+                        <div className="sm:w-3/4 pl-4">
+                            <h3 className="text-xl font-semibold text-white">{item.part_name}</h3>
+                            <p className="text-lg text-gray-300">Price: ${item.price}</p>
+                            <div className="flex items-center mt-2">
+                                <label htmlFor={`quantity-${key}`} className="text-white mr-2">Quantity:</label>
+                                <input
+                                    type="number"
+                                    id={`quantity-${key}`}
+                                    min="1"
+                                    max={item.quantity}
+                                    value={quantities[key] ?? item.quantity}
+                                    onChange={(e) =>
+                                        setQuantities((prev) => ({
+                                            ...prev,
+                                            [key]: parseInt(e.target.value) || 1,
+                                        }))
+                                    }
+                                    className="px-3 py-2 rounded-md border border-gray-400 bg-gray-700 text-white focus:outline-none"
+                                />
+                            </div>
 
-                        <label htmlFor={`quantity-${key}`}>Quantity:</label>
-                        <input
-                            type="number"
-                            id={`quantity-${key}`}
-                            min="1"
-                            max={item.quantity}
-                            value={quantities[key] ?? item.quantity}
-                            onChange={(e) =>
-                                setQuantities((prev) => ({
-                                    ...prev,
-                                    [key]: parseInt(e.target.value) || 1,
-                                }))
-                            }
-                            className="product-action-input"
-                        />
+                            <p className="mt-2 text-gray-300">Color: {item.color}</p>
+                            <p className="mt-1 text-gray-300">Subtotal: ${(item.price * (quantities[key] ?? item.quantity)).toFixed(2)}</p>
 
-                        <p>Color: {item.color}</p>
-                        <p>Subtotal: ${item.price * (quantities[key] ?? item.quantity)}</p>
+                            <div className="mt-4 flex space-x-4">
+                                <button
+                                    onClick={() => handleSaveQuantity(item)}
+                                    disabled={saving[key]}
+                                    className={`px-4 py-2 text-white bg-blue-500 rounded-md ${saving[key] ? 'bg-blue-600' : 'hover:bg-blue-600'}`}
+                                >
+                                    {saving[key] ? 'Saving...' : 'Save'}
+                                </button>
 
-                        <button
-                            onClick={() => handleSaveQuantity(item)}
-                            disabled={saving[key]}
-                            className="save-button"
-                        >
-                            {saving[key] ? 'Saving...' : 'Save'}
-                        </button>
-
-                        <button
-                            className="remove-button"
-                            onClick={() => handleRemove(item)}
-                        >
-                            Remove
-                        </button>
+                                <button
+                                    className="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600"
+                                    onClick={() => handleRemove(item)}
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 );
             })}
 
-            <hr />
-            <h2>Grand Total: ${total.toFixed(2)}</h2>
+            <hr className="my-6" />
+            <h2 className="text-2xl font-semibold text-white">Grand Total: ${total.toFixed(2)}</h2>
             <button
                 onClick={() => {
                     const updatedCart = cartItems.map((item) => {
@@ -179,7 +187,7 @@ const ShoppingCart = () => {
                     localStorage.setItem('cartData', JSON.stringify(updatedCart));
                     window.location.href = '/checkout';
                 }}
-                className="checkout-button"
+                className="mt-6 px-6 py-3 text-white bg-green-600 rounded-md hover:bg-green-700 transition duration-300"
             >
                 Proceed to Checkout
             </button>

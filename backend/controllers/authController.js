@@ -130,7 +130,7 @@ exports.login = async (req, res) => {
         res.status(200).json({
             message: 'Login successful',
             token,
-            user: { id: user.id, email: user.email, fname: user.fname, lname: user.lname } // Include user details here
+            user: { id: user.id, email: user.email, fname: user.fname, lname: user.lname, phone: user.phone, carrier: user.carrier } // Include user details here
         });
 
     } catch (err) {

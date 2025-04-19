@@ -5,11 +5,9 @@ import ProductDescription from "../components/ProductDescription";
 import ProductActions from "../components/ProductActions";
 import RelatedProducts from "../components/RelatedProducts";
 import Reviews from "../components/Reviews";
-import "./productdetail.css";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  console.log(id) // Get product ID from route
   const [part, setPart] = useState(null);
 
   useEffect(() => {
@@ -39,47 +37,41 @@ const ProductDetail = () => {
   if (!part) return <p>Loading product...</p>;
 
   return (
-
-
-    <div className="master-container">
-      <div className="prod-detail-container">
-        <ProductImageGallery partId={part.part_id} />
-        <div className="prod-bg-image-container">
-          <img src={`/images/${part.main_image}`} alt={part.part_name} id="big-img" />
+    <div className="container mx-auto px-4 py-6 flex flex-col gap-6">
+      <div className="prod-detail-container flex flex-col lg:flex-row gap-6">
+        {/* Product Image Gallery */}
+        <div className="prod-sm-image-container flex-1">
+          <ProductImageGallery partId={part.part_id} />
         </div>
-        <div className="prod-desc-act-container">
+
+        {/* Main Product Image */}
+        <div className="prod-bg-image-container flex-2 max-w-[400px]">
+          <img
+            src={`/images/${part.main_image}`}
+            alt={part.part_name}
+            id="big-img"
+            className="rounded-md max-w-full shadow-lg"
+          />
+        </div>
+
+        {/* Product Description and Actions */}
+        <div className="prod-desc-act-container flex-3 flex flex-col justify-between">
           <ProductDescription part={part} />
           <ProductActions product={part.part_id} />
         </div>
-        </div>
+      </div>
 
-        <div className="reviews-container">
-          <Reviews partId={part.part_id} />
-        </div>
-        <div className="related-products-container">
-          <RelatedProducts category={part.part_category} currentId={part.part_id} />
+      {/* Reviews Section */}
+      <div className="reviews-container mt-12">
+        <Reviews partId={part.part_id} />
+      </div>
+
+      {/* Related Products Section */}
+      <div className="related-products-container mt-12">
+        <RelatedProducts category={part.part_category} currentId={part.part_id} />
+      </div>
     </div>
-    </div>
-    
-
-
-
   );
 };
 
 export default ProductDetail;
-
-
-
-// <div className="prod-detail-container">
-//       <ProductImageGallery partId={part.part_id} />
-//       <div className="prod-bg-image-container">
-//         <img src={`/images/${part.main_image}`} alt={part.part_name} id="big-img" />
-//       </div>
-//       <div className="prod-desc-act-container">
-//         <ProductDescription part={part} />
-//         <ProductActions partId={part.part_id} />
-//       </div>
-//       <Reviews partId={part.part_id} />
-//       <RelatedProducts category={part.part_category} currentId={part.part_id} />
-//     </div>

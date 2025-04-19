@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext"; // Import the AuthContext
-import style from './nav.module.css';
+import "./nav.module.css"; // Import your custom CSS for the Navbar
 
 const Navbar = () => {
     const { logout } = useAuth(); // Get the logout function from context
@@ -16,29 +16,57 @@ const Navbar = () => {
     const token = localStorage.getItem('token'); // Get token from localStorage
 
     return (
-        <nav>
-            <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/contact">About Us</Link></li>
-                <li><Link to="/chat-with-seller">Chat with us</Link></li>
+        <nav className="rounded text-white p-4 shadow-md">
+            <div className="container mx-auto flex justify-between items-center">
+                {/* Logo or Brand */}
+                <div className="text-2xl font-semibold">
+                    <Link to="/" className="hover:text-purple-100">CarShop</Link>
+                </div>
 
-
-                {/* If token exists, show the Logout button */}
-                {token ? (
-                    <li><button onClick={handleLogout}>Logout</button></li>
-                ) : (
-                    <li><Link to="/login">Login</Link></li>
-                )}
-
-                {/* If token doesn't exist, show the Register button */}
-                {!token && (
-                    <li><Link to="/register">Register</Link></li>
-                )}
-
-                <li><Link to="/prodlist">Product Listings</Link></li>
-                <li><Link to="/cart">My Cart</Link></li>
-                <li><Link to="/accsetting">My Account</Link></li>
-            </ul>
+                {/* Navbar Links */}
+                <ul className="flex space-x-6">
+                    <li>
+                        <Link to="/" className="hover:text-gray-400">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="/contact" className="hover:text-gray-400">About Us</Link>
+                    </li>
+                    <li>
+                        <Link to="/chat-with-seller" className="hover:text-gray-400">Chat with Us</Link>
+                    </li>
+                    
+                    {/* Conditional Rendering based on Token */}
+                    {token ? (
+                        <li>
+                            <button
+                                onClick={handleLogout} 
+                                className="bg-gray-600 hover:bg-red-700 text-white px-3 mx-2 rounded-md"
+                            >
+                                Logout
+                            </button>
+                        </li>
+                    ) : (
+                        <>
+                            <li>
+                                <Link to="/login" className="hover:text-gray-400">Login</Link>
+                            </li>
+                            <li>
+                                <Link to="/register" className="hover:text-gray-400">Register</Link>
+                            </li>
+                        </>
+                    )}
+                    
+                    <li>
+                        <Link to="/prodlist" className="hover:text-gray-400">Product Listings</Link>
+                    </li>
+                    <li>
+                        <Link to="/cart" className="hover:text-gray-400">My Cart</Link>
+                    </li>
+                    <li>
+                        <Link to="/accsetting" className="hover:text-gray-400">My Account</Link>
+                    </li>
+                </ul>
+            </div>
         </nav>
     );
 };
