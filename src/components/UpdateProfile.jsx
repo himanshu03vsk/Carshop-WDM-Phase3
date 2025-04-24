@@ -69,7 +69,7 @@ const UpdateProfile = () => {
   };
 
   return (
-    <div className="section mx-auto mt-10 ml-10 px-5 py-5 rounded-lg shadow-md">
+    <div className="section mt-10 ml-10 px-5 py-5 rounded-lg shadow-md">
       <h3 className="text-xl font-bold mb-4">Update Profile Details</h3>
       {loading ? (
         <p>Loading...</p>

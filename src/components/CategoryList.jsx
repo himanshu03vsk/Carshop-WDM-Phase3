@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './categorylist.css';
 
 const CategoryList = ({ onCategorySelect }) => {
   const [categories, setCategories] = useState([]);
@@ -10,7 +9,7 @@ const CategoryList = ({ onCategorySelect }) => {
       try {
         const res = await fetch('http://localhost:3000/api/parts/categoryList', {
           headers: {
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
           },
         });
 
@@ -23,8 +22,7 @@ const CategoryList = ({ onCategorySelect }) => {
         console.log('Fetched categories:', data);
 
         if (Array.isArray(data)) {
-          const categoryList = (data)
-          setCategories(categoryList);
+          setCategories(data);
         } else {
           throw new Error('Unexpected response format');
         }
@@ -36,28 +34,29 @@ const CategoryList = ({ onCategorySelect }) => {
 
     fetchCategories();
   }, []);
-  return (
-    <div style={{ textAlign: 'center' }}>
-      <h2>Car Part Categories</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <ul className='partUL'>
+  return (
+    <div className="text-center font-sans">
+      <h2 className="text-2xl font-semibold mb-4">Car Part Categories</h2>
+      {error && <p className="text-red-600 font-medium">{error}</p>}
+
+      <ul className="max-w-sm mx-auto border border-gray-300 rounded overflow-hidden">
         {categories.length > 0 ? (
           categories.map((cat, index) => (
-            <li className='partLI'
+            <li
               key={index}
-              onClick={() => onCategorySelect(cat)} 
+              onClick={() => onCategorySelect(cat)}
+              className="px-4 py-3 bg-gray-700 text-white border-b border-gray-600 hover:bg-gray-600 cursor-pointer transition-colors"
             >
               {cat}
             </li>
           ))
         ) : (
-          !error && <li>Loading...</li>
+          !error && <li className="px-4 py-3 text-gray-500">Loading...</li>
         )}
       </ul>
     </div>
   );
 };
-
 
 export default CategoryList;

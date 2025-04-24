@@ -12,6 +12,15 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Hides the scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* For Internet Explorer */
+  scrollbar-width: none;      /* For Firefox */
+}
 /* 
 a {
   font-weight: 500;

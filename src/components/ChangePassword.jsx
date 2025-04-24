@@ -41,7 +41,8 @@ const ChangePassword = () => {
 
   return (
     <div className="section mt-10 ml-10 px-5 py-5 rounded-lg shadow-md">
-    <form onSubmit={handleSubmit} className="max-w-sm mx-auto space-y-4">
+      <h3 className="text-xl font-bold mb-4">Change Password</h3>
+    <form onSubmit={handleSubmit} className="mx-auto space-y-4">
       <input
         className='w-full p-2 border rounded'
         type="password"

@@ -30,7 +30,7 @@ const OrderHistory = () => {
 
   return (
     <div className="section p-6 rounded-xl shadow-lg max-w-4xl mx-auto my-8">
-      <h3 className="text-2xl font-bold text-gray-800 mb-6">Order History</h3>
+      <h3 className="text-2xl font-bold mb-6">Order History</h3>
       {loading ? (
         <p className="text-gray-600 text-center py-4">Loading...</p>
       ) : orders.length === 0 ? (

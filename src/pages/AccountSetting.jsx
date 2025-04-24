@@ -10,10 +10,10 @@ const AccountSetting = () => (
       <div className="container mt-4 flex flex-row gap-4">
       <div className="history flex flex-1 flex-col">
       <OrderHistory />
-
+      <EmailPreferences />
       </div>
       <div className="rest flex flex-col flex-1">
-      <EmailPreferences />
+      
       
       <UpdateProfile />
       

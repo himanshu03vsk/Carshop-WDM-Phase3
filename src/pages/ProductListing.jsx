@@ -4,35 +4,42 @@ import CarSearch from '../components/CarSearch';
 import PartList from '../components/PartList';
 
 const ProductListing = () => {
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [carFilters, setCarFilters] = useState({ make: '', model: '', year: '' });
-  
-    const handleSearch = (filters) => {
-        setSelectedCategory(null); 
-        setCarFilters(filters);  
-      };
-  
-    return (
-      <div>
-        <div style={{ display: 'flex', justifyContent: 'center', margin: '20px 0' }}>
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [carFilters, setCarFilters] = useState({ make: '', model: '', year: '' });
+
+  const handleSearch = (filters) => {
+    setSelectedCategory(null);
+    setCarFilters(filters);
+  };
+
+  return (
+    <div className="w-full font-sans">
+      {/* Search Bar */}
+      <div className="flex justify-center my-6">
         <CarSearch onSearch={handleSearch} />
       </div>
-  
-        <div style={{ display: 'flex', width: '90%', margin: '0 auto' }}>
-          <div style={{ flex: '0 0 30%' }}>
-          <CategoryList
-            onCategorySelect={(cat) => {
-                setCarFilters({ make: '', model: '', year: '' }); 
-                setSelectedCategory(cat);                
-            }}
+
+      {/* Centered Category & PartList */}
+      <div className="flex justify-center">
+        <div className="flex gap-6 w-full max-w-6xl">
+          {/* Sidebar */}
+          <div className="w-[30%]">
+            <CategoryList
+              onCategorySelect={(cat) => {
+                setCarFilters({ make: '', model: '', year: '' });
+                setSelectedCategory(cat);
+              }}
             />
           </div>
-          <div style={{ flex: '0 0 70%' }}>
+
+          {/* Parts Display */}
+          <div className="w-[70%]">
             <PartList category={selectedCategory} carFilters={carFilters} />
           </div>
         </div>
       </div>
-    );
-  };
-  
-  export default ProductListing;
+    </div>
+  );
+};
+
+export default ProductListing;

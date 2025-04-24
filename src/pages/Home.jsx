@@ -1,12 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // Import the correct hook from React Router
+import RecommendedProducts from "../components/RecommendedProducts";
 import "./Home.css"; // Import your custom CSS (if needed)
 
 const Home = () => {
     const navigate = useNavigate(); // Using the useNavigate hook for programmatic routing
 
     return (
-        <div className="container mt-16 px-6"> {/* Added padding and margin-top */}
+        <div  className=' mx-auto mt-16 px-6 w-4/5'>
+        <div className="container mx-auto mt-16 px-6 w-full"> {/* Added padding and margin-top */}
             {/* Image with responsive classes */}
             <img 
                 className="max-h-[60vh] object-cover h-auto rounded-lg shadow-lg" 
@@ -33,6 +35,9 @@ const Home = () => {
                     />
                 </button>
             </div>
+            
+        </div>
+        <RecommendedProducts />
         </div>
     );
 };

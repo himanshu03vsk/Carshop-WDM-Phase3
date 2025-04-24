@@ -3,6 +3,7 @@ const express = require('express');
 const http = require('http'); // for Socket.IO
 const { Server } = require('socket.io'); // for Socket.IO
 const sequelize = require('./config/db');
+const syncAllPartsToAlgolia = require('./config/sync-to-algolia');
 
 
 // Importing models
@@ -14,6 +15,7 @@ const Buyer = require('./models/Buyer');
 const Seller = require('./models/Seller');
 const Shipment = require('./models/Shipment');
 const Cart = require('./models/Cart');
+const Enquiry = require('./models/Enquiry');
 const PaymentInfo = require('./models/Payment');
 const BuyerAddress = require('./models/BuyerAddress');
 const PartImage = require('./models/PartImage');
@@ -139,6 +141,10 @@ const startServer = async () => {
     console.log('Connection to SQL Server has been established successfully.');
     await sequelize.sync();
     console.log('Models synced successfully.');
+
+    if (process.env.SYNC_ALGOLIA === 'true') {
+      await syncAllPartsToAlgolia();
+    }
 
     server.listen(port, () => {
       console.log(`Server is running on port ${port}`);
