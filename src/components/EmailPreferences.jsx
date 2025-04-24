@@ -87,7 +87,7 @@ const EmailPreferences = () => {
               onChange={handlePreferenceChange}
               className="form-radio h-5 w-5 text-blue-600"
             />
-            <span className="text-gray-700">Email Notifications</span>
+            <span className="text-gray-400">Email Notifications</span>
           </label>
 
           <label className="flex items-center space-x-3 cursor-pointer">
@@ -99,7 +99,7 @@ const EmailPreferences = () => {
               onChange={handlePreferenceChange}
               className="form-radio h-5 w-5 text-blue-600"
             />
-            <span className="text-gray-700">SMS Notifications</span>
+            <span className="text-gray-400">SMS Notifications</span>
           </label>
         </div>
 

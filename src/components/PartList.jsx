@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './partlist.css';
 
 const PartList = ({ category, carFilters }) => {
   const [parts, setParts] = useState([]);
@@ -17,7 +16,6 @@ const PartList = ({ category, carFilters }) => {
         model: carFilters.model,
         year: carFilters.year,
       }).toString();
-      
       return `http://localhost:3000/api/parts-of-cars/search?${queryParams}`;
     }
     return null;
@@ -27,11 +25,8 @@ const PartList = ({ category, carFilters }) => {
     const fetchParts = async () => {
       setLoading(true);
       setError('');
-
       let url = buildApiUrl();
-      if (!url) {
-        url = 'http://localhost:3000/api/parts/catelogue';
-      }
+      if (!url) url = 'http://localhost:3000/api/parts/catelogue';
 
       try {
         const res = await fetch(url);
@@ -49,44 +44,49 @@ const PartList = ({ category, carFilters }) => {
   }, [category, carFilters]);
 
   return (
-    <div className='container'>
-      {loading && <p className='loading'>Loading parts...</p>}
-      {error && <p className='error'>{error}</p>}
-
-      <div className='scrollList'>
-        {parts.length > 0 ? (
-          parts.map((part) => (
-            <div key={part.part_id} className='card'>
-              <img
-                src={part.part_image || 'https://via.placeholder.com/150'}
-                alt={part.part_type}
-                className='image'
-              />
-              <div className='info'>
-                <h3 style={{ margin: '5px 0' }}>{part.part_type}</h3>
-                <p><strong>Price:</strong> ${part.price}</p>
-                <p>
-                    <strong>Car:</strong>{' '}
-                    {part.car_year ? ` ${part.car_year}` : ' '}
-                    {' '}
-                    {[part.make, part.model].filter(Boolean).join(' ')}
-                    </p>
-              </div>
-              <button
-                onClick={() => navigate(`/proddetail/${part.part_id}`)}
-                className='PLbutton'
+    <div className="p-5 font-sans mx-auto">
+      {error && <p className="text-red-600 font-bold text-center text-lg">{error}</p>}
+      {loading ? (
+        <p className="text-center text-gray-500 text-lg">Loading...</p>
+      ) : (
+        <div className="flex flex-col gap-5 max-h-[600px] pr-2 overflow-y-auto">
+          {parts.length > 0 ? (
+            parts.map((part) => (
+              <div
+                key={part.part_id}
+                className="flex justify-between items-center gap-4 p-4 rounded-lg bg-gray-300 text-gray-800"
               >
-                View Details
-              </button>
-            </div>
-          ))
-        ) : (
-          <p>No parts found.</p>
-        )}
-      </div>
+                <img
+                  src={part.part_image || 'https://via.placeholder.com/150'}
+                  alt={part.part_type}
+                  className="w-[150px] h-[150px] object-cover rounded"
+                />
+                <div className="flex-1">
+                  <h3 className="text-xl font-semibold mb-1">{part.part_type}</h3>
+                  <p><strong>Price:</strong> ${part.price}</p>
+                  <p>
+                    <strong>Car:</strong>{' '}
+                    {part.car_year ? ` ${part.car_year}` : ''}{' '}
+                    {[part.make, part.model].filter(Boolean).join(' ')}
+                  </p>
+                </div>
+                <div className="ml-4 self-center">
+                  <button
+                    onClick={() => navigate(`/proddetail/${part.part_id}`)}
+                    className="px-6 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No parts found.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };
-
 
 export default PartList;
