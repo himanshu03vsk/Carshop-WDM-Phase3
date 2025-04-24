@@ -14,6 +14,7 @@ const Buyer = require('./models/Buyer');
 const Seller = require('./models/Seller');
 const Shipment = require('./models/Shipment');
 const Cart = require('./models/Cart');
+const Enquiry = require('./models/Enquiry');
 const PaymentInfo = require('./models/Payment');
 const BuyerAddress = require('./models/BuyerAddress');
 const PartImage = require('./models/PartImage');
