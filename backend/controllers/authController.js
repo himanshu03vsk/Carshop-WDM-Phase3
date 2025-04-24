@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const User = require('../models/Person');  // Importing the User model at the top for clarity
-
+const Buyer = require('../models/Buyer');  // Importing the Buyer model at the top for clarity
 dotenv.config();
 
 
@@ -89,6 +89,9 @@ exports.register = async (req, res) => {
             phone,
             carrier
         });
+
+        await Buyer.create({
+            buyer_email: email});
 
         // Return a success response with the newly created user data
         res.status(201).json({ message: 'User registered successfully', user: newUser });

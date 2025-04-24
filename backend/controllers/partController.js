@@ -390,3 +390,24 @@ exports.getPartBySelectedCategory = async (req, res) => {
     res.status(500).json({ message: "Database error", error: err.message });
   }
 };
+
+
+
+
+exports.createPartReview = async (req, res) => {
+  const { buyer_email, part_id, review_text, rating } = req.body;
+
+  try {
+    const newReview = await PartReviews.create({
+      buyer_email,
+      part_id,
+      review_text,
+      rating
+    });
+
+    res.status(201).json(newReview);
+  } catch (err) {
+    console.error("Error creating part review:", err);
+    res.status(500).json({ message: "Database error" });
+  }
+}

@@ -187,7 +187,7 @@ const ShoppingCart = () => {
                     localStorage.setItem('cartData', JSON.stringify(updatedCart));
                     window.location.href = '/checkout';
                 }}
-                className="mt-6 px-6 py-3 text-white bg-green-600 rounded-md hover:bg-green-700 transition duration-300"
+                className="mt-6 px-6 py-3 text-white bg-black rounded-md hover:bg-white hover:text-black transition duration-300"
             >
                 Proceed to Checkout
             </button>

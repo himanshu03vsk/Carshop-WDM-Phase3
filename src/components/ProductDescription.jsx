@@ -18,7 +18,7 @@ const ProductDescription = ({ part }) => {
   }, [part.part_id]);
 
   return (
-    <div className="prod-desc-container max-w-4xl mx-auto p-6 bg-gray-800 text-white rounded-lg shadow-lg">
+    <div className="prod-desc-container max-w-4xl mx-auto p-6 bg-black text-white rounded-lg shadow-lg">
       <div className="desc prod-title mb-4">
         <p className="text-2xl font-semibold">{part.part_type}</p>
       </div>

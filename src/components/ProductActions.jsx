@@ -86,24 +86,24 @@ const ProductActions = ({ product }) => {
   };
 
   return (
-    <div className="prod-actions">
+    <div className="prod-actions mt-4">
       <div className="act-btn">
         {/* Color selection dropdown */}
         <label htmlFor="color-select">Select Color:</label>
-        <select
+        <select className='bg-black text-white'
         id="color-select"
         value={selectedColor}
         onChange={(e) => setSelectedColor(e.target.value)}
         >
               {colors.map((color, index) => (
-              <option key={index} value={color.color}>
+              <option className='bg-black' key={index} value={color.color}>
               {color.color}
         </option>
   ))}
 </select>
       </div>
 
-      <div className="act-btn my-5 py-2 px-4 rounded-lg bg-gray-600 text-white border-2 border-gray-600 hover:bg-gray-700 hover:border-gray-700 focus:ring-2 focus:ring-gray-500 transition-all duration-300">
+      <div className="act-btn my-5 py-2 px-4 rounded-lg bg-black text-white text-white border-2 border-gray-600 hover:bg-white hover:border-gray-700 hover:text-black focus:ring-2 focus:ring-gray-500 transition-all duration-300">
         <label htmlFor="quantity">Quantity:</label>
         <input
           type="number"
@@ -116,7 +116,7 @@ const ProductActions = ({ product }) => {
         />
       </div>
 
-      <button className="act-btn crt-btn flex-1 my-5 py-2 px-4 rounded-lg bg-gray-600 text-white border-2 border-gray-600 hover:bg-gray-700 hover:border-gray-700 focus:ring-2 focus:ring-gray-500 transition-all duration-300" onClick={handleAddToCart}>
+      <button className="act-btn crt-btn flex-1 my-5 py-2 px-4 rounded-lg bg-black text-white border-2 border-gray-600 hover:bg-white hover:border-gray-700 hover:text-black focus:ring-2 focus:ring-gray-500 transition-all duration-300" onClick={handleAddToCart}>
         {buttonState}
       </button>
     </div>

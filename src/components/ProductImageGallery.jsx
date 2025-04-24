@@ -28,7 +28,8 @@ const ProductImageGallery = ({ partId }) => {
       {images.map((img, idx) => (
         <img
           key={idx}
-          src={`/images/${img.path}`}
+          src={'/src/assets/react.svg'}
+          // src={`/images/${img.path}`}
           alt={img.image_name}
           className="imgs"
         />

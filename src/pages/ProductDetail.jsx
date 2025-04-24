@@ -60,15 +60,16 @@ const ProductDetail = () => {
           <ProductActions product={part.part_id} />
         </div>
       </div>
-
+      <div className="rev-rec flex">
       {/* Reviews Section */}
-      <div className="reviews-container mt-12">
+      <div className="reviews-container mt-12 flex-1">
         <Reviews partId={part.part_id} />
       </div>
 
       {/* Related Products Section */}
-      <div className="related-products-container mt-12">
+      <div className="related-products-container mt-12 flex-1">
         <RelatedProducts category={part.part_category} currentId={part.part_id} />
+      </div>
       </div>
     </div>
   );

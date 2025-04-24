@@ -28,14 +28,21 @@ const RelatedProducts = ({ category, currentId }) => {
   }, [category, currentId]);
 
   return (
-    <div style={{ marginTop: "40px" }}>
+    <div className='bg-black p-4 mt-8 rounded scorllable min-h-[500px] max-h-[500px] overflow-y-auto'>
       <h3>Related Products</h3>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div className='flex flex-col'>
         {Array.isArray(related) &&
           related.map((p) => (
-            <div key={p.part_id} style={{ margin: "10px" }}>
-              <img src={`/images/${p.main_image}`} alt={p.part_name} width="100" />
-              <p>{p.part_name}</p>
+            <div key={p.part_id} className="m-3 rounded bg-white text-black p-2">
+              <div className="item-dets flex gap-4">
+                  <div className="price-name flex flex-col justify-center flex-1">
+                    <img className="p-1 mb-1 rounded" src={'/src/assets/react.svg'} alt={p.part_name} width="100" />
+                    <p>{p.part_name}</p>
+                    <p>${p.price}</p>
+                  </div>
+                  <p className="flex-2">{p.part_description}</p>
+              </div>
+              
             </div>
           ))}
       </div>
