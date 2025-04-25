@@ -1,11 +1,13 @@
 /* Team Details */
 /* Vishwakarma, Himanshu | Marquez, Andrea */
 /* 1002240465 | 1001515535 */
-
 .container {
     display: flex;
-    margin: 5px 2px;
+    margin: 20px auto; /* Adding more margin for spacing */
+    gap: 20px; /* Add space between elements */
+    max-width: 1200px; /* Optional: set a max-width for better control */
 }
+
 
 .entry {
     flex: 2;
@@ -14,13 +16,20 @@
 }
 
 .para {
-    /* flex: 2; */
     padding: 5px;
     border-radius: 1%;
-    overflow:hidden;
+    overflow-y: auto; /* Enable vertical scrolling */
     font-size: 20px;
-    /* flex-wrap: wrap; */
+    max-height: 300px; /* Set a max height to create scrollable space */
 }
+
+/* For smaller screens */
+@media (max-width: 768px) {
+    .para {
+        max-height: 200px; /* Optional: Adjust height for smaller screens */
+    }
+}
+
 
 .item {
     /* margin: 0 5px; */

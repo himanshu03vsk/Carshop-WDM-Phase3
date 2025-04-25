@@ -22,9 +22,29 @@ exports.getBuyerAddressByEmail = async (req, res) => {
     }   
 }
 
-exports.createBuyerAddress = (req, res) => {
-    res.status(200).json({ message: 'createBuyerAddress' });
-}
+
+exports.createBuyerAddress = async (req, res) => {
+  const { buyer_email, line1, line2, city, state_in, zip_code } = req.body;
+
+  try {
+    // Create the new address entry for the buyer
+    const newAddress = await BuyerAddress.create({
+      buyer_email,
+      line1,
+      line2,
+      city,
+      state_in,
+      zip_code,
+    });
+
+    res.status(201).json({ message: "Address added successfully", newAddress });
+  } catch (error) {
+    console.error("Error adding address:", error);
+    res.status(500).json({ message: "Failed to add address" });
+  }
+};
+    
+
 
 exports.updateBuyerAddress = (req, res) => {
     res.status(200).json({ message: 'updateBuyerAddress' });

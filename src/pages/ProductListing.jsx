@@ -56,7 +56,7 @@ import './ProductListing.css'; // Import your CSS file for styling
 const ProductListing = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [carFilters, setCarFilters] = useState({ make: '', model: '', year: '' });
-  const [sortOption, setSortOption] = useState('price-asc');  // Default sort: price ascending
+  // const [sortOption, setSortOption] = useState('price-asc');  // Default sort: price ascending
 
   const handleSearch = (filters) => {
     setSelectedCategory(null);
@@ -92,7 +92,6 @@ const ProductListing = () => {
             <PartList
               category={selectedCategory} 
               carFilters={carFilters} 
-              sortOption={sortOption}  // Pass the sortOption to PartList
             />
           </div>
         </div>

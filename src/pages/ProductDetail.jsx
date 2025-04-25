@@ -37,10 +37,9 @@ const ProductDetail = () => {
   }, [id]);
 
   const handleImageChange = (newImage) => {
-    setFadeIn(false); // Reset the fade effect
     setMainImage(newImage); // Change the image
-    setTimeout(() => setFadeIn(true), 50); // Apply the fade-in effect after a small delay
   };
+
   if (!part) return <p>Loading product...</p>;
 
   return (
@@ -56,29 +55,30 @@ const ProductDetail = () => {
         </div>
 
         {/* Main Product Image */}
-        <div className="prod-bg-image-container flex-2 h-5/10">
+        <div className="prod-bg-image-container flex-1 lg:flex-2 h-[300px] lg:h-[500px]">
           <img
             src={mainImage}  // Use the main image state here
             alt={part.part_name}
             id="big-img"
-            className="w-full rounded-md shadow-lg"
+            className="w-full h-full object-cover rounded-md shadow-lg"
           />
         </div>
 
         {/* Product Description and Actions */}
-        <div className="prod-desc-act-container flex-3 flex flex-col justify-between">
+        <div className="prod-desc-act-container flex-1 lg:flex-3 flex flex-col justify-between">
           <ProductDescription part={part} />
           <ProductActions product={part.part_id} />
         </div>
       </div>
-      <div className="rev-rec flex">
+
+      <div className="rev-rec flex flex-col lg:flex-row mt-12 gap-6">
         {/* Reviews Section */}
-        <div className="reviews-container mt-12 flex-1">
+        <div className="reviews-container flex-1">
           <Reviews partId={part.part_id} />
         </div>
 
         {/* Related Products Section */}
-        <div className="related-products-container mt-12 flex-1">
+        <div className="related-products-container flex-1">
           <RelatedProducts category={part.part_category} currentId={part.part_id} />
         </div>
       </div>
