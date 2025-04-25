@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { InstantSearch, connectHits , Configure } from 'react-instantsearch-dom';
 import { algoliasearch } from 'algoliasearch';
-
+import './RecommendedProducts.css' ;
 const searchClient = algoliasearch('7G59D8167N', '1a755d15880cfbc8269093d24e24b422');
 
 // Component to render each product card
@@ -30,7 +30,7 @@ const RecommendedProducts = () => {
       <h3 className="text-2xl font-semibold mb-4">Recommended for You</h3>
       <InstantSearch searchClient={searchClient} indexName="products">
         <Configure hitsPerPage={5} />
-        <div className='text-black'>
+        <div className='text-black p-4 rounded scorllable'>
         <ConnectedHits />
         </div>
       </InstantSearch>

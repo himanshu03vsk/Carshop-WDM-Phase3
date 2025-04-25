@@ -1,4 +1,4 @@
-.CSform {
+/* .CSform {
     display: inline-block;
     justify-content: center;
     text-align: center;
@@ -29,4 +29,17 @@
     cursor: pointer;
     align-self: flex-end;
     width: 20%;
-  }
+  } */
+
+
+
+.car-search-items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+}

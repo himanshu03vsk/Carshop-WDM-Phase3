@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './carsearch.css'; // Import your CSS file for styling
 
 const CarSearch = ({ onSearch }) => {
   const [make, setMake] = useState('');
@@ -16,9 +17,9 @@ const CarSearch = ({ onSearch }) => {
 
       <form
         onSubmit={handleSearch}
-        className="w-full bg-gray-700 p-6 rounded-lg"
+        className="w-full p-6 rounded-lg"
       >
-        <div className="flex items-center justify-center gap-4 overflow-x-auto">
+        <div className="car-search-items flex items-center justify-center gap-4 overflow-x-auto">
           <input
             type="text"
             placeholder="Make (e.g. Toyota)"

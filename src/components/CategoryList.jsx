@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import './categorylist.css'; // Import your CSS file for styling
 const CategoryList = ({ onCategorySelect }) => {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState('');
@@ -46,7 +46,7 @@ const CategoryList = ({ onCategorySelect }) => {
             <li
               key={index}
               onClick={() => onCategorySelect(cat)}
-              className="px-4 py-3 bg-gray-700 text-white border-b border-gray-600 hover:bg-gray-600 cursor-pointer transition-colors"
+              className="category-list-item px-4 py-3 bg-gray-700 text-white border-b border-gray-600 hover:bg-gray-600 cursor-pointer transition-colors"
             >
               {cat}
             </li>

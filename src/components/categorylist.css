@@ -1,4 +1,4 @@
-.partUL {
+/* .partUL {
     list-style: none;
     padding: 0;
     max-width: 300px;
@@ -17,4 +17,15 @@
     color: white;
     transition: 0.3s;
     cursor: pointer;
+} */
+
+
+.category-list-item {
+    background-color: #525050;
+    border-radius: 0.25rem;
+    border: #444 solid 1px;
+}
+
+.category-list-item:hover {
+    background-color: #444;
 }
