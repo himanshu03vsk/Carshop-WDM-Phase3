@@ -6,6 +6,8 @@ const PartList = ({ category, carFilters }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const _ = Math.floor(Math.random() * 3) + 1
+
 
   const buildApiUrl = () => {
     if (category) {
@@ -57,7 +59,7 @@ const PartList = ({ category, carFilters }) => {
                 className="flex justify-between items-center gap-4 p-4 rounded-lg bg-gray-300 text-gray-800"
               >
                 <img
-                  src={part.part_image || 'https://via.placeholder.com/150'}
+                  src={`/public/images/${part.part_type} ${_}.jpg`}
                   alt={part.part_type}
                   className="w-[150px] h-[150px] object-cover rounded"
                 />

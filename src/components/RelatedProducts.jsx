@@ -36,7 +36,7 @@ const RelatedProducts = ({ category, currentId }) => {
             <div key={p.part_id} className="m-3 rounded bg-white text-black p-2">
               <div className="item-dets flex gap-4">
                   <div className="price-name flex flex-col justify-center flex-1">
-                    <img className="p-1 mb-1 rounded" src={'/src/assets/react.svg'} alt={p.part_name} width="100" />
+                    <img className="p-1 mb-1 rounded" src={`/public/images/${p.part_type} 2.jpg`} alt={p.part_name} width="100" />
                     <p>{p.part_name}</p>
                     <p>${p.price}</p>
                   </div>

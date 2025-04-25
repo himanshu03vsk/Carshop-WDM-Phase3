@@ -9,6 +9,7 @@ import Reviews from "../components/Reviews";
 const ProductDetail = () => {
   const { id } = useParams();
   const [part, setPart] = useState(null);
+  const [mainImage, setMainImage] = useState(""); // State to track the main image
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -26,6 +27,7 @@ const ProductDetail = () => {
 
         const data = await res.json();
         setPart(data);
+        setMainImage(`/images/${data.part_type} 1.jpg`); // Set the default main image to the first image
       } catch (error) {
         console.error("Error loading product:", error.message);
       }
@@ -34,6 +36,11 @@ const ProductDetail = () => {
     fetchProduct();
   }, [id]);
 
+  const handleImageChange = (newImage) => {
+    setFadeIn(false); // Reset the fade effect
+    setMainImage(newImage); // Change the image
+    setTimeout(() => setFadeIn(true), 50); // Apply the fade-in effect after a small delay
+  };
   if (!part) return <p>Loading product...</p>;
 
   return (
@@ -41,16 +48,20 @@ const ProductDetail = () => {
       <div className="prod-detail-container flex flex-col lg:flex-row gap-6">
         {/* Product Image Gallery */}
         <div className="prod-sm-image-container flex-1">
-          <ProductImageGallery partId={part.part_id} />
+          <ProductImageGallery 
+            partId={part.part_id} 
+            part_type={part.part_type} 
+            setMainImage={setMainImage} // Pass the function to update the main image
+          />
         </div>
 
         {/* Main Product Image */}
-        <div className="prod-bg-image-container flex-2 max-w-[400px]">
+        <div className="prod-bg-image-container flex-2 h-5/10">
           <img
-            src={`/images/${part.main_image}`}
+            src={mainImage}  // Use the main image state here
             alt={part.part_name}
             id="big-img"
-            className="rounded-md max-w-full shadow-lg"
+            className="w-full rounded-md shadow-lg"
           />
         </div>
 
@@ -61,15 +72,15 @@ const ProductDetail = () => {
         </div>
       </div>
       <div className="rev-rec flex">
-      {/* Reviews Section */}
-      <div className="reviews-container mt-12 flex-1">
-        <Reviews partId={part.part_id} />
-      </div>
+        {/* Reviews Section */}
+        <div className="reviews-container mt-12 flex-1">
+          <Reviews partId={part.part_id} />
+        </div>
 
-      {/* Related Products Section */}
-      <div className="related-products-container mt-12 flex-1">
-        <RelatedProducts category={part.part_category} currentId={part.part_id} />
-      </div>
+        {/* Related Products Section */}
+        <div className="related-products-container mt-12 flex-1">
+          <RelatedProducts category={part.part_category} currentId={part.part_id} />
+        </div>
       </div>
     </div>
   );

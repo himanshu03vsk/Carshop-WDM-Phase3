@@ -30,7 +30,9 @@ const RecommendedProducts = () => {
       <h3 className="text-2xl font-semibold mb-4">Recommended for You</h3>
       <InstantSearch searchClient={searchClient} indexName="products">
         <Configure hitsPerPage={5} />
+        <div className='text-black'>
         <ConnectedHits />
+        </div>
       </InstantSearch>
     </div>
   );
