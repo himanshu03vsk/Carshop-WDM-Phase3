@@ -11,7 +11,6 @@ const BuyerChat = () => {
   const messagesEndRef = useRef(null);
   const BUYER_EMAIL = JSON.parse(localStorage.getItem('user')).email; // You might want to dynamically set this later
 
-
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -56,7 +55,7 @@ const BuyerChat = () => {
   };
 
   return (
-    <div className="flex flex-col h-[80vh] max-w-3xl mx-auto mt-8 bg-white shadow-lg rounded-lg border border-gray-300">
+    <div className="flex flex-col h-[80vh] max-w-3xl mx-auto mt-8 bg-gray-500 shadow-lg rounded-lg border border-gray-300">
       <div className="px-6 py-4 border-b">
         <h3 className="text-xl font-semibold">Chat with Admin</h3>
       </div>

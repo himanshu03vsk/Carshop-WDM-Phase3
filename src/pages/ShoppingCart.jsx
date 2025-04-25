@@ -120,24 +120,32 @@ const ShoppingCart = () => {
     };
 
     return (
-        <div className="container flex-col flex mx-auto p-6">
+        <div className="container flex flex-col mx-auto p-6">
             {cartItems.map((item) => {
                 const key = getKey(item);
                 return (
-                    <div key={key} className="flex flex-col sm:flex-row border-b-2 py-4 mb-4 bg-gray-900 rounded-lg shadow-lg">
-                        <div className="sm:w-1/4">
-                            <img src={`/images/${item.main_image}`} alt={item.part_name} className="w-full h-auto object-cover rounded-md"/>
+                    <div key={key} className="flex flex-col sm:flex-row border-b-2 py-4 mb-4 bg-gray-500 rounded-lg shadow-lg">
+                        {/* Image */}
+                        <div className="sm:w-1/4 mb-4 sm:mb-0">
+                            <img
+                                src={`public/images/${item.part_type} 1.jpg`}
+                                alt={item.part_name}
+                                className="m-3 w-full h-auto object-cover rounded-md"
+                            />
                         </div>
+
+                        {/* Product Details */}
                         <div className="sm:w-3/4 pl-4">
                             <h3 className="text-xl font-semibold text-white">{item.part_name}</h3>
                             <p className="text-lg text-gray-300">Price: ${item.price}</p>
+
+                            {/* Quantity Selector */}
                             <div className="flex items-center mt-2">
                                 <label htmlFor={`quantity-${key}`} className="text-white mr-2">Quantity:</label>
                                 <input
                                     type="number"
                                     id={`quantity-${key}`}
                                     min="1"
-                                    max={item.quantity}
                                     value={quantities[key] ?? item.quantity}
                                     onChange={(e) =>
                                         setQuantities((prev) => ({
@@ -145,14 +153,15 @@ const ShoppingCart = () => {
                                             [key]: parseInt(e.target.value) || 1,
                                         }))
                                     }
-                                    className="px-3 py-2 rounded-md border border-gray-400 bg-gray-700 text-white focus:outline-none"
+                                    className="px-3 py-2 rounded-md border border-gray-400 bg-gray-700 text-white focus:outline-none w-20"
                                 />
                             </div>
 
                             <p className="mt-2 text-gray-300">Color: {item.color}</p>
                             <p className="mt-1 text-gray-300">Subtotal: ${(item.price * (quantities[key] ?? item.quantity)).toFixed(2)}</p>
 
-                            <div className="mt-4 flex space-x-4">
+                            {/* Action Buttons */}
+                            <div className="mt-4 flex flex-col sm:flex-row gap-4 sm:gap-6">
                                 <button
                                     onClick={() => handleSaveQuantity(item)}
                                     disabled={saving[key]}

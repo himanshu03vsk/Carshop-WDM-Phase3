@@ -114,25 +114,6 @@ const CheckoutPage = () => {
         });
       }
 
-      const smsGateways = {
-        Verizon: "phonenumber@vtext.com",  // e.g., 1234567890@vtext.com
-        TMobile: "phonenumber@tmomail.net", // e.g., 1234567890@tmomail.net
-        "AT&T": "phonenumber@txt.att.net",     // e.g., 1234567890@txt.att.net
-        Sprint: "phonenumber@messaging.sprintpcs.com"  // e.g., 1234567890@messaging.sprintpcs.com
-    };
-    
-    // Example usage:
-    const phoneNumber = JSON.parse(localStorage.getItem('user')).phone;  // Assuming the phone number is stored in local storage
-    const carrier = JSON.parse(localStorage.getItem('user')).carrier;  // Let's say the recipient is on Verizon
-    
-    const smsAddress = smsGateways[carrier].replace("phonenumber", phoneNumber);
-    console.log(smsAddress);  // Output: 1234567890@vtext.com
-
-    // email the order confirmation to the user
-    //TODO: implement email sending logic here
-    
-    
-
       // Step 4: Clear the cart
       await fetch(`http://localhost:3000/api/carts/clear/${userEmail}`, {
         method: 'DELETE',
@@ -140,7 +121,7 @@ const CheckoutPage = () => {
       });
 
       alert("Order placed successfully!");
-      navigate('/order-confirmation');
+      navigate('/accsetting');
 
     } catch (err) {
       console.error("Checkout Error:", err);
@@ -151,23 +132,34 @@ const CheckoutPage = () => {
   };
 
   return (
-    <div className="checkout-page">
-      <h1>Checkout</h1>
+    <div className="checkout-page container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <h1 className="text-3xl font-semibold text-center mb-6">Checkout</h1>
 
-      <ShippingInfo
-        addresses={addresses}
-        onAddressSelect={setBillingAddress}
-        onNewAddress={handleNewAddress}
-      />
+      {/* Shipping Info Section */}
+      <div className="mb-8">
+        <ShippingInfo
+          addresses={addresses}
+          onAddressSelect={setBillingAddress}
+          onNewAddress={handleNewAddress}
+        />
+      </div>
 
-      <PaymentInfo
-        cards={cards}
-        onCardSelect={setPaymentCard}
-        onNewCard={handleNewCard}
-      />
+      {/* Payment Info Section */}
+      <div className="mb-8">
+        <PaymentInfo
+          cards={cards}
+          onCardSelect={setPaymentCard}
+          onNewCard={handleNewCard}
+        />
+      </div>
 
-      <div>
-        <button onClick={handleMakePayment} disabled={isProcessing}>
+      {/* Payment Button */}
+      <div className="flex justify-center">
+        <button
+          onClick={handleMakePayment}
+          disabled={isProcessing}
+          className="w-full sm:w-auto bg-blue-600 text-white py-3 px-6 rounded-md hover:bg-blue-700 transition disabled:bg-gray-400"
+        >
           {isProcessing ? "Processing..." : "Make Payment"}
         </button>
       </div>

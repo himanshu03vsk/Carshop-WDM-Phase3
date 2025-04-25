@@ -74,7 +74,7 @@ const EmailPreferences = () => {
   }
 
   return (
-    <div className="mt-4 w-full mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className="section bg-gray-500 mt-8 mt-4 w-full mx-auto p-6 rounded-lg shadow-md">
       <h3 className="text-2xl font-semibold text-gray-800 mb-6">Notification Preferences</h3>
       <form className="space-y-6" onSubmit={handleSavePreferences}>
         <div className="space-y-4">

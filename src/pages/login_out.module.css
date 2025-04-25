@@ -9,7 +9,7 @@
 /* Styling for the login heading */
 .login-container h1 {
     font-size: 2rem;
-    color: #333;
+    color: #ffffff;
     margin-bottom: 20px;
     font-family: 'Lucida Sans', Geneva, Verdana, sans-serif;
 }
@@ -23,11 +23,14 @@
 }
 
 .login-container {
+    background-color: #555;
+    margin: 5% 20%;
     padding: 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 7.5px;
 }
 
 form {
@@ -48,7 +51,7 @@ form {
 .login-container button {
     width: 100%;
     padding: 10px;
-    background-color: #555;
+    background-color: #000000;
     color: white;
     border: none;
     border-radius: 5px;
@@ -57,7 +60,8 @@ form {
 }
 
 .login-container button:hover {
-    background-color: #999;
+    background-color: #ffffff;
+    color: black;
 }
 
 .logout-container {

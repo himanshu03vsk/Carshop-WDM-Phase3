@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import axios from "axios";
@@ -12,7 +11,6 @@ const AdminChat = () => {
   const [currentUserEmail, setCurrentUserEmail] = useState(null);
   const [users, setUsers] = useState([]);
   const messagesEndRef = useRef(null);
-
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -76,9 +74,9 @@ const AdminChat = () => {
   };
 
   return (
-    <div className="flex h-[80vh] max-w-5xl mx-auto mt-8 bg-white shadow-lg rounded-lg overflow-hidden border border-gray-300">
+    <div className="flex flex-col md:flex-row h-[80vh] max-w-5xl mx-auto mt-8 bg-gray-500 shadow-lg rounded-lg overflow-hidden border border-gray-300">
       {/* Sidebar */}
-      <div className="w-1/3 bg-gray-100 p-4 border-r overflow-y-auto">
+      <div className="w-full md:w-1/3 bg-gray-100 p-4 border-b md:border-r overflow-y-auto md:h-full">
         <h3 className="text-lg font-bold mb-4">Buyers</h3>
         {users.length === 0 && (
           <p className="text-sm text-gray-500">No users yet.</p>
@@ -99,7 +97,7 @@ const AdminChat = () => {
       </div>
 
       {/* Chat Window */}
-      <div className="w-2/3 flex flex-col justify-between p-4">
+      <div className="w-full md:w-2/3 flex flex-col justify-between p-4">
         <div className="h-full overflow-y-auto mb-4 pr-1">
           {currentUserEmail ? (
             messages.map((msg, index) => (

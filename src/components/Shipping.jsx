@@ -1,13 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ShippingInfo = ({ addresses, onAddressSelect, onNewAddress }) => {
   const [selectedAddress, setSelectedAddress] = useState(null);
+  const navigate = useNavigate();
+
+  const handleAddNewAddress = (e) => {
+    // Navigate to the account settings page to add a new card
+    navigate("/accsetting");
+  };
 
   // Handle the selection of an address from the dropdown
   const handleSelectAddress = (e) => {
     const address = JSON.parse(e.target.value); // parse the JSON string back into an object
     setSelectedAddress(address);
     onAddressSelect(address);
+
+  
   };
 
   return (
@@ -32,7 +41,7 @@ const ShippingInfo = ({ addresses, onAddressSelect, onNewAddress }) => {
       </div>
 
       <div>
-        <button onClick={onNewAddress}>Add New Address</button>
+        <button onClick={handleAddNewAddress}>Add New Address</button>
       </div>
 
       <div>

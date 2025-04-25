@@ -1,8 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // PaymentInfo Component
 const PaymentInfo = ({ cards, onCardSelect, onNewCard }) => {
   const [selectedCard, setSelectedCard] = useState(null);
+  const navigate = useNavigate();
+
+
+  const handleAddNewCard = () => {
+    // Navigate to the account settings page to add a new card
+    navigate("/accsetting");
+  };
+
 
   const handleSelectCard = (card) => {
     setSelectedCard(card);
@@ -30,7 +39,7 @@ const PaymentInfo = ({ cards, onCardSelect, onNewCard }) => {
       </div>
 
       <div>
-        <button onClick={onNewCard}>Add New Card</button>
+        <button onClick={handleAddNewCard}>Add New Card</button>
       </div>
 
       <div>
