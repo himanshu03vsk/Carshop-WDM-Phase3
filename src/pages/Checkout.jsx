@@ -1,7 +1,10 @@
+
+
 import React, { useState, useEffect } from "react";
 import ShippingInfo from '../components/Shipping';
 import PaymentInfo from '../components/PaymentInfo';
 import { useNavigate } from 'react-router-dom';
+import emailjs from 'emailjs-com';
 
 const CheckoutPage = () => {
   const [addresses, setAddresses] = useState([]);
@@ -121,6 +124,69 @@ const CheckoutPage = () => {
       });
 
       alert("Order placed successfully!");
+
+      // Format cart items as a string for email
+      const formattedCartItems = cartItems.map(item => `${item.quantity} x ${item.part_id} (${item.color})`).join(', ');
+
+      // Step 5: Get buyer notification preferences
+      const buyerResponse = await fetch(`http://localhost:3000/api/buyer/getPreferences/${userEmail}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      const buyerData = await buyerResponse.json();
+      const notificationPreference = buyerData.notification_preferences.trim(); // 'email' or 'sms'
+
+      // Step 6: Send email or SMS based on preference
+      if (notificationPreference === 'email') {
+        try {
+          const emailResponse = await emailjs.send("service_6giof3n", "template_y7hsryo", {
+            order_id: order_id,
+            user_email: userEmail,
+            shipping_address: billingAddress,
+            payment_method: paymentCard,
+            cart_items: formattedCartItems,
+          }, "jzklnCLNJW00dhF1s");
+
+          console.log('Email sent successfully:', emailResponse);
+        } catch (error) {
+          console.error('Error sending email:', error);
+        }
+      } else if (notificationPreference === 'sms') {
+        // Send SMS via Email-to-SMS gateway (e.g., Verizon, AT&T, etc.)
+        const phoneNumber = JSON.parse(localStorage.getItem('user')).phone; // Assuming phone is stored
+        const carrier = JSON.parse(localStorage.getItem('user')).carrier; // Carrier info
+
+        // Map carrier to the email-to-SMS gateway
+        const carrierGateways = {
+          'Verizon': 'vtext.com',
+          'AT&T': 'txt.att.net',
+          'T-Mobile': 'tmomail.net',
+          'Sprint': 'messaging.sprintpcs.com',
+        };
+
+        // Check if the carrier exists in the map
+        if (!carrierGateways[carrier]) {
+          console.error('Carrier not supported for SMS');
+          return;
+        }
+
+        // Create the SMS gateway address
+        const smsGateway = `${phoneNumber}@${carrierGateways[carrier]}`;
+
+        const smsMessage = `Order Confirmation: Order ID ${order_id}, Shipping Address: ${billingAddress}, Payment Method: ${paymentCard}, Cart Items: ${formattedCartItems}`;
+
+        try {
+          const smsResponse = await emailjs.send("service_6giof3n", "template_y2n8672", {
+            userEmail: smsGateway , order_id: order_id, billingAddress:billingAddress, paymentCard:paymentCard, cartItems: formattedCartItems}, // You can customize this to match your SMS template
+          "jzklnCLNJW00dhF1s");
+
+          console.log('SMS sent successfully:', smsResponse);
+        } catch (error) {
+          console.error('Error sending SMS:', error);
+        }
+      }
+
+      // Navigate to account settings page after email/SMS is sent
       navigate('/accsetting');
 
     } catch (err) {
