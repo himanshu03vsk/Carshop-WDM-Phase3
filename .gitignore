@@ -27,3 +27,5 @@ dist-ssr
 # public/images/*.jpg
 # public/images/*.webp
 # public/images/*.jpeg
+package-lock.json
+package.json
