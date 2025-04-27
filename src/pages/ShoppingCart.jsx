@@ -126,11 +126,11 @@ const ShoppingCart = () => {
                 return (
                     <div key={key} className="flex flex-col sm:flex-row border-b-2 py-4 mb-4 bg-gray-500 rounded-lg shadow-lg">
                         {/* Image */}
-                        <div className="sm:w-1/4 mb-4 sm:mb-0">
+                        <div className="sm:w-1/4 mb-4 sm:mb-0 flex justify-center items-center">
                             <img
                                 src={`public/images/${item.part_type} 1.jpg`}
                                 alt={item.part_name}
-                                className="m-3 w-full h-auto object-cover rounded-md"
+                                className="m-3 w-full h-auto object-contain max-w-full"
                             />
                         </div>
 

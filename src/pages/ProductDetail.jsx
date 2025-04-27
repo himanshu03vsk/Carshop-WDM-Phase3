@@ -55,7 +55,7 @@ const ProductDetail = () => {
         </div>
 
         {/* Main Product Image */}
-        <div className="prod-bg-image-container flex-1 lg:flex-3 h-[300px] lg:h-[500px]">
+        <div className="prod-bg-image-container flex-1 lg:flex-4 h-[300px] lg:h-[500px]">
           <img
             src={mainImage}  // Use the main image state here
             alt={part.part_name}
@@ -65,7 +65,7 @@ const ProductDetail = () => {
         </div>
 
         {/* Product Description and Actions */}
-        <div className="prod-desc-act-container flex-1 lg:flex-3 flex flex-col justify-between">
+        <div className="prod-desc-act-container flex-1 lg:flex-5 flex flex-col justify-between">
           <ProductDescription part={part} />
           <ProductActions product={part.part_id} />
         </div>
