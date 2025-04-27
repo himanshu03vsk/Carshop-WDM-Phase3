@@ -435,11 +435,11 @@ const CheckoutPage = () => {
   };
 
   return (
-    <div className="checkout-page container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="checkout-page flex flex-col container mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-3xl font-semibold text-center mb-6">Checkout</h1>
 
       {/* Shipping Info Section */}
-      <div className="mb-8">
+      <div className="mb-8 flex-1">
         <ShippingInfo
           addresses={addresses}
           onAddressSelect={setBillingAddress}
@@ -448,7 +448,7 @@ const CheckoutPage = () => {
       </div>
 
       {/* Payment Info Section */}
-      <div className="mb-8">
+      <div className="mb-8 flex-1">
         <PaymentInfo
           cards={cards}
           onCardSelect={setPaymentCard}

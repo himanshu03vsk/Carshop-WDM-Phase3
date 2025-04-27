@@ -5,9 +5,8 @@ const ShippingInfo = ({ addresses, onAddressSelect, onNewAddress }) => {
   const [selectedAddress, setSelectedAddress] = useState(null);
   const navigate = useNavigate();
 
-  const handleAddNewAddress = (e) => {
-    // Navigate to the account settings page to add a new card
-    navigate("/accsetting");
+  const handleAddNewAddress = () => {
+    navigate("/accsetting"); // Navigate to account settings to add a new address
   };
 
   // Handle the selection of an address from the dropdown
@@ -15,44 +14,51 @@ const ShippingInfo = ({ addresses, onAddressSelect, onNewAddress }) => {
     const address = JSON.parse(e.target.value); // parse the JSON string back into an object
     setSelectedAddress(address);
     onAddressSelect(address);
-
-  
   };
 
   return (
-    <div className="billing-info">
-      <h2>Shipping Information</h2>
+    <div className="bg-gray-500 section p-6 rounded-lg shadow-lg max-w-xl mx-auto space-y-6">
+      <h2 className="text-2xl font-semibold text-white">Shipping Information</h2>
       
+      {/* Choose Shipping Address Section */}
       <div>
-        <h3>Choose a Shipping Address</h3>
+        <h3 className="text-lg font-medium text-white mb-3">Choose a Shipping Address</h3>
         {addresses.length > 0 ? (
-          <select onChange={handleSelectAddress}>
-            <option value="">Select Existing Address</option>
+          <select
+            onChange={handleSelectAddress}
+            className="w-full border border-gray-300 rounded-md py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option className="text-white bg-gray-900" value="">Select Existing Address</option>
             {addresses.map((address, index) => (
-              <option key={index} value={JSON.stringify(address)}>
-                {/* Render address in a human-readable format */}
+              <option className="text-white bg-gray-900" key={index} value={JSON.stringify(address)}>
                 {address.line1}, {address.city}, {address.state_in}, {address.zip_code}
               </option>
             ))}
           </select>
         ) : (
-          <p>No addresses available. Please add a new one.</p>
+          <p className="text-gray-600 mt-2">No addresses available. Please add a new one.</p>
         )}
       </div>
 
-      <div>
-        <button onClick={handleAddNewAddress}>Add New Address</button>
+      {/* Add New Address Section */}
+      <div className="flex justify-center">
+        <button
+          onClick={handleAddNewAddress}
+          className="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+        >
+          Add New Address
+        </button>
       </div>
 
-      <div>
-        {selectedAddress && (
-          <div>
-            <h4>Selected Address:</h4>
-            {/* Render full details of the selected address */}
-            <p>{selectedAddress.line1}, {selectedAddress.line2}, {selectedAddress.city}, {selectedAddress.state_in} {selectedAddress.zip_code}</p>
-          </div>
-        )}
-      </div>
+      {/* Selected Address Section */}
+      {selectedAddress && (
+        <div className="border-t border-gray-300 pt-4">
+          <h4 className="text-lg font-medium text-white">Selected Address:</h4>
+          <p className="text-white">
+            {selectedAddress.line1}, {selectedAddress.line2}, {selectedAddress.city}, {selectedAddress.state_in} {selectedAddress.zip_code}
+          </p>
+        </div>
+      )}
     </div>
   );
 };

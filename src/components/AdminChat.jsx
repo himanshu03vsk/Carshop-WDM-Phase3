@@ -74,10 +74,10 @@ const AdminChat = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-[80vh] max-w-5xl mx-auto mt-8 bg-gray-500 shadow-lg rounded-lg overflow-hidden border border-gray-300">
+    <div className="flex flex-col md:flex-row h-[80vh] max-w-5xl mx-auto mt-8 section shadow-lg rounded-lg overflow-hidden border border-gray-300">
       {/* Sidebar */}
       <div className="w-full md:w-1/3 bg-gray-100 p-4 border-b md:border-r overflow-y-auto md:h-full">
-        <h3 className="text-lg font-bold mb-4">Buyers</h3>
+        <h3 className="text-black text-lg font-bold mb-4">Buyers</h3>
         {users.length === 0 && (
           <p className="text-sm text-gray-500">No users yet.</p>
         )}
@@ -98,6 +98,11 @@ const AdminChat = () => {
 
       {/* Chat Window */}
       <div className="w-full md:w-2/3 flex flex-col justify-between p-4">
+      <div className="mb-4">
+            <h3 className="text-lg font-semibold text-white">
+              Chatting with: {currentUserEmail}
+            </h3>
+          </div>
         <div className="h-full overflow-y-auto mb-4 pr-1">
           {currentUserEmail ? (
             messages.map((msg, index) => (

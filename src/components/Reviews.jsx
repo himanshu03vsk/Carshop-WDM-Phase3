@@ -67,7 +67,7 @@ const Reviews = ({ partId }) => {
 
   return (
     <>
-    <div className="write-review-container">
+    <div className="section p-3 rounded write-review-container">
       <h3 className="text-white mb-5">Write a Review</h3>
       <form onSubmit={handleSubmitReview} className="review-form flex flex-col gap-4">
         <textarea
@@ -81,10 +81,10 @@ const Reviews = ({ partId }) => {
             <option key={rating} value={rating}>{rating}</option>
           ))}
         </select>
-        <button type="submit" className="submit-review-btn">Submit Review</button>
+        <button type="submit" className="p-1 rounded submit-review-btn">Submit Review</button>
       </form>
     </div>
-    <div className="reviews-container bg-black rounded min-h-[500px] max-h-[500px]">
+    <div className="section reviews-container bg-black rounded min-h-[500px] max-h-[500px]">
       <h3 className="text-white mb-5">Reviews</h3>
       {reviews.length > 0 ? (
         reviews.map((rev, i) => (

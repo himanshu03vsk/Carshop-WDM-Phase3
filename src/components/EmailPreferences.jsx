@@ -74,8 +74,8 @@ const EmailPreferences = () => {
   }
 
   return (
-    <div className="section bg-gray-500 mt-8 mt-4 w-full mx-auto p-6 rounded-lg shadow-md">
-      <h3 className="text-2xl font-semibold text-gray-800 mb-6">Notification Preferences</h3>
+    <div className="section text-white mt-8 mt-4 w-full mx-auto p-6 rounded-lg shadow-md">
+      <h3 className="text-2xl font-semibold text-white mb-6">Notification Preferences</h3>
       <form className="space-y-6" onSubmit={handleSavePreferences}>
         <div className="space-y-4">
           <label className="flex items-center space-x-3 cursor-pointer">
@@ -87,7 +87,7 @@ const EmailPreferences = () => {
               onChange={handlePreferenceChange}
               className="form-radio h-5 w-5 text-blue-600"
             />
-            <span className="text-gray-400">Email Notifications</span>
+            <span className="text-white">Email Notifications</span>
           </label>
 
           <label className="flex items-center space-x-3 cursor-pointer">
@@ -99,7 +99,7 @@ const EmailPreferences = () => {
               onChange={handlePreferenceChange}
               className="form-radio h-5 w-5 text-blue-600"
             />
-            <span className="text-gray-400">SMS Notifications</span>
+            <span className="text-white">SMS Notifications</span>
           </label>
         </div>
 
@@ -111,7 +111,7 @@ const EmailPreferences = () => {
         </button>
       </form>
 
-      <p className="mt-4 text-gray-600 text-sm">Select how you want to receive notifications.</p>
+      <p className="mt-4 text-white text-sm">Select how you want to receive notifications.</p>
     </div>
   );
 };

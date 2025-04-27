@@ -42,12 +42,12 @@ const RelatedProducts = ({ category, currentId }) => {
             <div
               onClick={() => handleClick(p.part_id)}
               key={p.part_id}
-              className="m-3 rounded bg-white text-black p-2 cursor-pointer transition duration-300 ease-in-out transform hover:bg-gray-600 hover:shadow-lg"
+              className="section m-3 rounded bg-white text-white p-2 cursor-pointer transition duration-300 ease-in-out transform hover:bg-gray hover:shadow-lg"
             >
               <div className="item-dets flex gap-4">
                 <div className="price-name flex flex-col justify-center flex-1">
                   <img
-                    className="p-1 mb-1 rounded"
+                    className=" mb-1 rounded"
                     src={`/public/images/${p.part_type} 2.jpg`}
                     alt={p.part_name}
                     width="100"

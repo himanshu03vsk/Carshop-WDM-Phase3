@@ -124,7 +124,7 @@ const ShoppingCart = () => {
             {cartItems.map((item) => {
                 const key = getKey(item);
                 return (
-                    <div key={key} className="flex flex-col sm:flex-row border-b-2 py-4 mb-4 bg-gray-500 rounded-lg shadow-lg">
+                    <div key={key} className="section flex flex-col sm:flex-row border-b-2 py-4 mb-4 rounded-lg shadow-lg">
                         {/* Image */}
                         <div className="sm:w-1/4 mb-4 sm:mb-0 flex justify-center items-center">
                             <img
@@ -153,7 +153,7 @@ const ShoppingCart = () => {
                                             [key]: parseInt(e.target.value) || 1,
                                         }))
                                     }
-                                    className="px-3 py-2 rounded-md border border-gray-400 bg-gray-700 text-white focus:outline-none w-20"
+                                    className="px-3 py-2 rounded-md border border-gray-400 section text-white focus:outline-none w-20"
                                 />
                             </div>
 

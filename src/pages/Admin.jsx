@@ -35,7 +35,7 @@ const AdminDashboard = () => {
 
     <AdminChat /> {/* Add the ChatBox component here */}  
     
-    <div className="p-6 bg-gray-500 min-h-screen bg-gray-50">
+    <div className="p-6 mt-3 section min-h-screen max-h-[1080px] scrollable overflow-y-auto bg-gray-50">
       <h1 className="text-3xl font-bold mb-6 text-center">Admin Dashboard</h1>
 
       <div className="grid gap-6">
@@ -87,7 +87,7 @@ const AdminDashboard = () => {
                   {order.Shipments?.map((shipment) => (
                     <div
                       key={shipment.shipment_id}
-                      className="text-sm bg-black-100 p-2 mb-2 rounded"
+                      className="text-sm section p-2 mb-2 rounded"
                     >
                       <p>
                         <strong>Part:</strong> {shipment.Part?.part_name} (ID:{" "}
