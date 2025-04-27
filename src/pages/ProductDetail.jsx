@@ -46,7 +46,7 @@ const ProductDetail = () => {
     <div className="container mx-auto px-4 py-6 flex flex-col gap-6">
       <div className="prod-detail-container flex flex-col lg:flex-row gap-6">
         {/* Product Image Gallery */}
-        <div className="prod-sm-image-container flex-1">
+        <div className="prod-sm-image-container lg:flex-1 flex-1">
           <ProductImageGallery 
             partId={part.part_id} 
             part_type={part.part_type} 
@@ -55,7 +55,7 @@ const ProductDetail = () => {
         </div>
 
         {/* Main Product Image */}
-        <div className="prod-bg-image-container flex-1 lg:flex-2 h-[300px] lg:h-[500px]">
+        <div className="prod-bg-image-container flex-1 lg:flex-3 h-[300px] lg:h-[500px]">
           <img
             src={mainImage}  // Use the main image state here
             alt={part.part_name}
