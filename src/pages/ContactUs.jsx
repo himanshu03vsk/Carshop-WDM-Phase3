@@ -71,28 +71,28 @@ const About = () => {
       {/* Main Section with Contact Info and Map */}
       <div className="flex flex-col md:flex-row justify-between gap-12 mb-12">
         {/* Contact Info Section */}
-        <section className="w-full md:w-1/3 text-center">
+        <section className="section rounded p-3 w-full md:w-1/3 text-center">
           <h2 className="text-3xl font-bold mb-4">Contact Us</h2>
           <h3 className="text-xl mb-6">We're here to help</h3>
 
           <div className="mb-4">
             <h3 className="text-lg font-semibold">Phone Number</h3>
-            <h4 className="text-gray-600">(817) xxx-xxxx</h4>
+            <h4 className="text-white">(817) xxx-xxxx</h4>
           </div>
 
           <div className="mb-4">
             <h3 className="text-lg font-semibold">E-Mail</h3>
-            <h4 className="text-gray-600">contact@carshop.com</h4>
+            <h4 className="text-white">contact@carshop.com</h4>
           </div>
 
           <div className="mb-4">
             <h3 className="text-lg font-semibold">Address</h3>
-            <h4 className="text-gray-600">416 Yates ST, Arlington, TX 76010</h4>
+            <h4 className="text-white">416 Yates ST, Arlington, TX 76010</h4>
           </div>
         </section>
 
         {/* Google Map Section */}
-        <section className="w-full md:w-2/3">
+        <section className="section p-3 rounded w-full md:w-2/3">
           <h2 className="text-3xl font-bold mb-4 text-center">Find Us on the Map</h2>
           <LoadScript googleMapsApiKey="AIzaSyC_uSLzJkD-58lga1hRprISlHPr1Q8vjGs">
             <GoogleMap
@@ -109,7 +109,7 @@ const About = () => {
       
       <section className="w-full md:w-1/3 mx-auto">
         <h2 className="text-3xl font-bold mb-4 text-center">Send us a Message</h2>
-        <form onSubmit={handleSubmit} className="bg-gray-800 p-6 rounded-lg ">
+        <form onSubmit={handleSubmit} className="section p-6 rounded-lg ">
           <input
             type="text"
             id="name"
@@ -118,7 +118,7 @@ const About = () => {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full p-3 rounded-md border border-gray-300 bg-gray-700 text-white placeholder-gray-400 focus:outline-none"
+            className="w-full p-3 rounded-md border border-gray-300 section my-1 text-white placeholder-gray-400 focus:outline-none"
           />
           <input
             type="email"
@@ -128,7 +128,7 @@ const About = () => {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full p-3 rounded-md border border-gray-300 bg-gray-700 text-white placeholder-gray-400 focus:outline-none"
+            className="w-full p-3 rounded-md border border-gray-300 section my-1 text-white placeholder-gray-400 focus:outline-none"
           />
           <input
             type="phone"
@@ -138,7 +138,7 @@ const About = () => {
             value={formData.phone}
             onChange={handleChange}
             required
-            className="w-full p-3 rounded-md border border-gray-300 bg-gray-700 text-white placeholder-gray-400 focus:outline-none"
+            className="w-full p-3 rounded-md border border-gray-300 section my-1 text-white placeholder-gray-400 focus:outline-none"
           />
           <input
             type="text"
@@ -148,7 +148,7 @@ const About = () => {
             value={formData.subject}
             onChange={handleChange}
             required 
-            className="w-full p-3 rounded-md border border-gray-300 bg-gray-700 text-white placeholder-gray-400 focus:outline-none"
+            className="w-full p-3 rounded-md border border-gray-300 section my-1 text-white placeholder-gray-400 focus:outline-none"
           />
           <textarea
             id="message"
@@ -158,7 +158,7 @@ const About = () => {
             value={formData.message}
             onChange={handleChange}
             required
-            className="w-full p-3 rounded-md border border-gray-300 bg-gray-700 mb-3 text-white placeholder-gray-400 focus:outline-none"
+            className="w-full p-3 rounded-md border border-gray-300 section my-1 mb-3 text-white placeholder-gray-400 focus:outline-none"
           />
           <button
             type="submit"
